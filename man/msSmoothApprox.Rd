@@ -41,9 +41,9 @@ process to register with the (embedded) event history object of the input
 after processing the input data.
 Default: \code{"msSmoothApprox"}.}
 
-\item{rule}{An integer describing the rule to be used for values
+\item{rule}{An integer (either 2 or 3) describing the rule to be used for values
 that are outside the range of the minima of \code{x}.
-If \code{rule=1}, NAs will be supplied for any such points.
+%If \code{rule=1}, NAs will be supplied for any such points.
 If \code{rule=2}, the \code{y} values corresponding to the extreme \code{x} values will be used.
 If \code{rule=3}, linear extrapolation is used.
 Default: 2.}

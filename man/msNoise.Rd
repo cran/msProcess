@@ -11,7 +11,7 @@
 \alias{msNoise}
 \title{Local Noise Estimation}
 \concept{noise estimation}
-\usage{msNoise(x, FUN="spline", MARGIN=2, type="noise",
+\usage{msNoise(x, FUN="spline",
     pre=abs, detach.noise=FALSE,
     event="Local Noise Estimation", ...)}
 \description{Estimates the local noise level by applying
@@ -44,13 +44,13 @@ will be the noise estimates of a mass spectrum).
 In either case, the additional arguments \code{...} will be
 passed directly to the specified routine.}
 
-\item{MARGIN}{The subscripts over which the function is to be applied
-to the data defined by \code{type}.
-For example, if \code{type="intensity"}, the  data is
-defined by the intensity matrix of \code{x} and \code{MARGIN=1}
-indicates rows while \code{MARGIN=2} indicates columns.
-Default: 2 (\code{FUN} will operate over each column
-of the data).}
+%\item{MARGIN}{The subscripts over which the function is to be applied
+%to the data defined by \code{type}.
+%For example, if \code{type="intensity"}, the  data is
+%defined by the intensity matrix of \code{x} and \code{MARGIN=1}
+%indicates rows while \code{MARGIN=2} indicates columns.
+%Default: 2 (\code{FUN} will operate over each column
+%of the data).}
 
 \item{detach.noise}{A logical indicating if the noise removed previously
 should be detached or not. Default: \code{FALSE}.}
@@ -59,13 +59,13 @@ should be detached or not. Default: \code{FALSE}.}
 event to register with the (embedded) event history object of the input
 after processing the input data. Default: \code{"Local Noise Estimation"}.}
 
-\item{pre}{A function that is applied to the data defined by \code{type} prior to
+\item{pre}{A function that is applied to the data prior to
 processing it with the function defined by \code{FUN}. Default: \code{abs}.}
 
-\item{type}{A character string defining the type
-of data matrix to extract from \code{x} and operate over.
-The operative data will be \code{x[[type]]} if it exists.
-Default: \code{"noise"}.}
+%\item{type}{A character string defining the type
+%of data matrix to extract from \code{x} and operate over.
+%The operative data will be \code{x[[type]]} if it exists.
+%Default: \code{"noise"}.}
 }
 
 \value{

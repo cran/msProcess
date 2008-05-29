@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDenoise.q#5 $
-## $DateTime: 2008/04/30 10:25:31 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDenoise.q#12 $
+## $DateTime: 2008/05/13 14:18:36 $
 
 backMSDenoise = function(data){
 	
@@ -12,26 +12,29 @@ backMSDenoise = function(data){
 	
 	## set startup properties
 
-	#> getTabProps("MSDenoiseWavelet")
+	#> getMethodProps("MSDenoiseWavelet")
 	# [1] "MSDenoiseWaveletWavelet"      "MSDenoiseWaveletXForm"        "MSDenoiseWaveletNLevels"     
 	# [4] "MSDenoiseWaveletReflect"      "MSDenoiseWaveletShrinkFun"    "MSDenoiseWaveletThreshFun"   
 	# [7] "MSDenoiseWaveletThreshScale"  "MSDenoiseWaveletNoiseVar"     "MSDenoiseWaveletAssignAttr"  
 	#[10] "MSDenoiseWaveletSpecGroup"    "MSDenoiseWaveletOptionsGroup" "MSDenoiseWaveletTab"         
-	#> getTabProps("MSDenoiseSmooth")
+	#> getMethodProps("MSDenoiseSmooth")
 	#[1] "MSDenoiseSmoothTwiceit"      "MSDenoiseSmoothOptionsGroup" "MSDenoiseSmoothTab"         
-	#> getTabProps("MSDenoiseMRD")
+	#> getMethodProps("MSDenoiseMRD")
 	#[1] "MSDenoiseMRDWavelet"      "MSDenoiseMRDXForm"        "MSDenoiseMRDLevels"       "MSDenoiseMRDReflect"     
 	#[5] "MSDenoiseMRDKeepSmooth"   "MSDenoiseMRDKeepDetails"  "MSDenoiseMRDSpecGroup"    "MSDenoiseMRDOptionsGroup"
 	#[9] "MSDenoiseMRDTab"        
-	motherProps = c("MSDenoiseFUN", "MSDenoiseMargin", "MSDenoiseEventLabel", "MSDenoiseAttachNoise", 
-					"MSDenoisePrintObject", "MSDenoisePrintHistory", "MSDenoiseSaveAs")      
+	motherProps = c("MSDenoiseFUN", "MSDenoiseEventLabel", "MSDenoiseAttachNoise", 
+					"MSDenoiseSaveAs")      
 	smoothProps = "MSDenoiseSmoothTwiceit"
 	mrdProps = c( "MSDenoiseMRDWavelet", "MSDenoiseMRDXForm", "MSDenoiseMRDLevels", "MSDenoiseMRDReflect",
 	              "MSDenoiseMRDKeepSmooth", "MSDenoiseMRDKeepDetails") 	
 	waveletProps = c("MSDenoiseWaveletWavelet", "MSDenoiseWaveletXForm", "MSDenoiseWaveletNLevels", 
 					 "MSDenoiseWaveletReflect", "MSDenoiseWaveletShrinkFun", "MSDenoiseWaveletThreshFun",  
 					 "MSDenoiseWaveletThreshScale", "MSDenoiseWaveletNoiseVar", "MSDenoiseWaveletAssignAttr") 
-	allMethodProps = c(motherProps, smoothProps, mrdProps, waveletProps)
+	displayProps = c("MSDenoisePrintObject", "MSDenoisePrintHistory", "MSDenoisePlotResult", "MSDenoisePlotXAxisVariable",
+            		 "MSDenoisePlotSpectraSubset", "MSDenoisePlotSpectraOffset", "MSDenoiseImageResult", 
+            		 "MSDenoiseImageXAxisVariable", "MSDenoiseImageSpectraSubset")
+	allMethodProps = c(motherProps, smoothProps, mrdProps, waveletProps, displayProps)
 	
 	if(initialmsg){	
 		for(i in allMethodProps){
@@ -54,26 +57,28 @@ backMSDenoise = function(data){
       							button = c("Ok"),
 								icon = c("error"))				
 		}
+		for(i in c(motherProps, displayProps)){
+				data = cbSetEnableFlag(data, i, T)
+		}
+		for(i in waveletProps){
+				data = cbSetEnableFlag(data, i, T)
+		}
+		data = cbSetCurrValue(data, "MSDenoiseWaveletNLevels", 
+							 floor(logb(numRows(get(cbGetCurrValue(data, "MSDenoiseDataSet"))[["intensity"]]), 2)))
 	}
-#	if(activeprop == "MSDenoiseDataSet" && !exists(cbGetCurrValue(data, "MSDenoiseDataSet"))){
-#      guiDisplayMessageBox(paste(cbGetCurrValue(data, "MSDenoiseDataSet"), 
-#      							 "does not exist. Please enter another data set name."),
-#      						button = c("Ok"),
-#							icon = c("error"))				
-#	}
 
 	## actions based on selecting the data column
-	if(activeprop == "MSDenoiseDataType"){
-			for(i in motherProps){
-				data = cbSetEnableFlag(data, i, T)
-			}
-			for(i in waveletProps){
-				data = cbSetEnableFlag(data, i, T)
-			}
-			data = cbSetCurrValue(data, "MSDenoiseWaveletNLevels", 
-								  floor(logb(numRows(get(cbGetCurrValue(data, "MSDenoiseDataSet"))[[
-								  								cbGetCurrValue(data, "MSDenoiseDataType")]]), 2)))
-	}
+#	if(activeprop == "MSDenoiseDataType"){
+#			for(i in c(motherProps, displayProps)){
+#				data = cbSetEnableFlag(data, i, T)
+#			}
+#			for(i in waveletProps){
+#				data = cbSetEnableFlag(data, i, T)
+#			}
+#			data = cbSetCurrValue(data, "MSDenoiseWaveletNLevels", 
+#								  floor(logb(numRows(get(cbGetCurrValue(data, "MSDenoiseDataSet"))[[
+#								  								cbGetCurrValue(data, "MSDenoiseDataType")]]), 2)))
+#	}
 
 	## actions based on selecting the method
 	if(activeprop == "MSDenoiseFUN"){
@@ -121,10 +126,4 @@ backMSDenoise = function(data){
 		}
 	}
   data
-}
-
-
-getTabProps = function(pattern){
-	item = guiGetObjectNames("Property")
-	item[grep(pattern, item)]
 }

@@ -11,7 +11,7 @@
 ##  Mother denoising function: msNormalize
 ################################################
 
-"msNormalize" <- function(x, FUN="tic", MARGIN=2,
+"msNormalize" <- function(x, FUN="tic",
  event="Intensity Normalization", ...)
 {
   # initialize variables
@@ -26,8 +26,6 @@
     FUN <- paste("msNormalize", upperCase(match.arg(FUN, supported)), sep="")
   if (is.null(x$intensity))
     stop("Intensity matrix missing from msSet object")
-  checkScalarType(MARGIN, "integer")
-  checkRange(MARGIN, 1:2)
   checkScalarType(event,"character")
 
   # prompt event queue

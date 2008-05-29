@@ -16,12 +16,17 @@
   library("msProcess")
   library("msBreast")
     
-# display the README file for the msProcess package
-  help(library="msProcess")
+# display and browse the online help files
+  if (!is.R()) {
+  	help(library="msProcess")	# or msHelp(section="proteome")
+  } else {
+  	help(topic="msProcess")
+  }
   
 #------------------------------------------------------------------------------ 
 # explore the build-in dataset Breast2003QC
-  # print out the summary of Breast2003QC            
+  # print out the summary of Breast2003QC  
+  data(Breast2003QC, package="msBreast")          
   Breast2003QC           
           
   # plot the entire set of spectra by setting the interspectrum offset manually       

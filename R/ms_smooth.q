@@ -19,6 +19,7 @@
   index=rep(TRUE, length(x)), process="msSmoothApprox")
 {
   method <- match.arg(method, c("linear", "constant"))
+  if (rule != 2 && rule != 3) stop("argument 'rule' can be only 2 or 3")
 
   if (!isProcessRecorded(process)){
     report <- list(process=process, method=method, rule=rule,

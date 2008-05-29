@@ -21,9 +21,13 @@
 ################################################
 
 "msPeak" <- function(x, FUN="simple",
-  MARGIN=2, type="intensity", use.mean=FALSE,
+  use.mean=FALSE,
   event="Peak Detection", ...)
 {
+	# setup
+	type <- "intensity" 
+	MARGIN <- 2
+	
   # initialize variables
   supported <- c("simple", "search", "cwt", "mrd")
 
@@ -127,8 +131,10 @@
   W.tree <- wavCWTTree(W, n.octave.min=n.octave.min, tolerance=tolerance, type="maxima")
 
   # isolate the peaks
+	noise.min.raw <- quantile(abs(attr(W.tree,"noise")), 
+		prob=if (is.null(noise.min)) {0.05} else {noise.min})
   p <- wavCWTPeaks(W.tree, snr.min=snr.min, scale.range=c(scale.min, length(x)), length.min=length.min,
-    noise.span=noise.span, noise.fun=noise.fun, noise.min=noise.min)
+    noise.span=noise.span, noise.fun=noise.fun, noise.min=noise.min.raw)
 
   # calculate corresponding Holder exponents
   if (holder){

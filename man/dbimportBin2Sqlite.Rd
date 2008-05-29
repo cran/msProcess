@@ -56,7 +56,5 @@ SQLite. In that case, users can use SQL JOIN to get category related data.
 	Users must make sure that all binary files share the same dimensionality.
 }
 \seealso{ \link[base]{readBin}, \link{readBinMatrix}, \link{writeBinBlocks} }
-\examples{
-}
 \keyword{interface}
 \keyword{database}

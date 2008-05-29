@@ -5,6 +5,7 @@
 ##  matchObject
 ##  msExtrema
 ##  msPlot
+##	princomp2
 ##  rescale
 ##  zeroCross
 ##
@@ -296,6 +297,66 @@
   }
 
   invisible(offset)
+}
+
+###
+#	princomp2
+###
+# note: adapted from function fx.pca.matrix in package dimeR
+# In S-PLUS, PCA can be computed no matter whether samples or features are more.
+# In R, PCA can be computed only if there are more samples than features.
+# If there are more features than samples, PCA can be computed 
+# 	more efficiently from the transposed x.
+# samples are rows and feature are columns
+"princomp2" <-
+function(x, ...)
+{
+	d <- dim(x)
+	n <- d[1]	
+	p <- d[2]
+
+	# transpose and center x by feature
+	center <- colMeans(x)
+	txc <- t(x) - center
+		
+	# compute eigen in the transposed space
+	if (!is.R())
+		ans <- eigen(cov.wt(txc, cor=FALSE, center=FALSE)$cov, symmetric=TRUE)
+	else
+		ans <- eigen(cov.wt(txc, cor=FALSE, center=FALSE, method="ML")$cov, symmetric=TRUE)
+
+	# compute sdev for the original samples
+	ans$values <- sqrt(ans$values*p/n)
+	names(ans) <- c("sdev", "loadings")[match(c("values", "vectors"), names(ans))]
+	ans$sdev[is.na(ans$sdev)] <- 0
+	ans$sdev[ans$sdev<0] <- 0
+
+	# convert loadings to the original space
+	ans$loadings <- txc %*% ans$loadings	
+	ans$loadings <- apply(ans$loadings, 2, function(x) x/sqrt(sum(x^2)))
+	oldClass(ans$loadings) <- "loadings"
+
+	# compute scores for the original samples
+	ans$scores <- t(txc) %*% ans$loadings
+		
+	cnames <- paste("Comp.", 1:n, sep = "")
+	if(!length(rnames <- dimnames(x)[[2]]))
+		rnames <- paste(if (!is.R()) "X" else "V", 1:p, sep = "")
+	names(ans$sdev) <- cnames
+	dimnames(ans$loadings) <- list(rnames, cnames)
+	dimnames(ans$scores) <- list(dimnames(ans$scores)[[1]], cnames)
+
+	ans$center <- center
+	names(ans$center) <- rnames
+	ans$scale <- rep(1, p)
+	ans$n.obs <- n
+#	ans$terms <- Terms
+	ans$call <- match.call()
+#	ans$factor.sdev <- ans$sdev
+	ans$coef <- ans$loadings			
+	oldClass(ans) <- "princomp"
+		
+	ans
 }
 
 ###

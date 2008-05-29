@@ -24,7 +24,8 @@
   
 #------------------------------------------------------------------------------ 
 # explore the build-in dataset Dilution2005Raw
-  # print out the summary of Dilution2005Raw            
+  # print out the summary of Dilution2005Raw   
+  data(Dilution2005Raw, package="msDilution")
   Dilution2005Raw           
           
   # plot the peptide mixture spectra by setting the interspectrum offset manually       

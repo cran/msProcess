@@ -380,7 +380,7 @@ if (is.R()){
 ###
 
 "image.msSet" <- function(x, what="spectra", subset=NULL, xaxis="mass",
-	xlim=NULL, add=FALSE, xaxs="i", yaxs="i", ...)
+	xlim=NULL, add=FALSE, xaxs="i", yaxs="i",  main = paste(what, "for", deparse(substitute(x))), ...)
 {
   if (!add && !all(par("mfrow")==c(1,1))){
     old.par <- par()
@@ -410,7 +410,7 @@ if (is.R()){
   # construct the region of interest
   if (xaxis=="mass"){
     if (xlim[1]<mass.range[1] || xlim[2]>mass.range[2]){
-	  stop("xlim should be within [", mass.range[1], ", ", mass.range[2], "].")
+      stop("xlim should be within [", mass.range[1], ", ", mass.range[2], "].")
     }
     tick.range <- which(mz>=xlim[1])[1]:which(mz>=xlim[2])[1]
     xvector <- mz[tick.range]
@@ -426,10 +426,10 @@ if (is.R()){
   # extract the information of interest
   what <- match.arg(what, choices=c("spectra", "noise", "noise.local",
 	"baseline", "peak.list", "peak.matrix"))
-  main <- paste(what, "for", deparse(substitute(x)))
+#  main <- paste(what, "for", deparse(substitute(x)))
 
   if (what=="spectra"){
-    ymatrix <- x$intensity[tick.range, subset]
+    ymatrix <- x$intensity[tick.range, subset, drop=FALSE]
     image(xvector, seq(n.subset), ymatrix, xaxs=xaxs, yaxs=yaxs,
 	  main=main, xlab=xlab, ylab="spectrum index", ...)
   }
@@ -445,7 +445,7 @@ if (is.R()){
       peak.logic[peak.list[[subset[i]]][, "tick.loc"], i] <- 1
     }
 
-    ymatrix <-  peak.logic[tick.range,]
+    ymatrix <-  peak.logic[tick.range, , drop=FALSE]
     image(xvector, seq(n.subset), ymatrix, xaxs=xaxs, yaxs=yaxs,
 	  main=main, xlab=xlab, ylab="spectrum index", ...)
   }
@@ -454,7 +454,7 @@ if (is.R()){
     if (is.null(peak.matrix))
       stop("The input has no peak.matrix attribute")
 
-    pmatrix <- t(peak.matrix)
+    pmatrix <- t(peak.matrix[subset, , drop=FALSE])
     image(seq(numRows(pmatrix)), seq(ncol(pmatrix)), pmatrix, xaxs=xaxs, yaxs=yaxs,
       main=main, xlab="peak class index", ylab="spectrum index",
       sub=paste("measure =", attr(peak.matrix, "measure")), ...)
@@ -463,9 +463,9 @@ if (is.R()){
     roi <- x[[what]]
     if (is.null(roi))
       stop("The input has no ", what, " attribute.\n")
-	ymatrix <- roi[tick.range, subset]
-	image(xvector, seq(n.subset), ymatrix, xaxs=xaxs, yaxs=yaxs,
-	  main=main, xlab=xlab, ylab="spectrum index", ...)
+    ymatrix <- roi[tick.range, subset, drop=FALSE]
+    image(xvector, seq(n.subset), ymatrix, xaxs=xaxs, yaxs=yaxs,
+      main=main, xlab=xlab, ylab="spectrum index", ...)
   }
 
   invisible(x)
@@ -478,7 +478,7 @@ if (is.R()){
 # TODO: add legend using key().
 
 "plot.msSet" <- function(x, process="msPrepare", subset=1, offset=NULL,
-	xaxis="mass", xlim=NULL, type="l", pch=1, lty=1:2, col=1:8, lwd=1, add=FALSE, ...)
+	xaxis="mass", xlim=NULL, type="l", pch=1, lty=1:2, col=1:8, lwd=1, add=FALSE, main = paste(process, "for", deparse(substitute(x))), ...)
 {
   # define local functions
   "msStop" <- function(arg,func){
@@ -617,8 +617,10 @@ if (is.R()){
       for (i in seq(n.spectra)){
         loc <- peak.loc[[i]]
         n.peak <- length(loc)
-        pxmatrix[1:n.peak, i] <- switch(xaxis, mass=mz[loc], time=loc)
-        pymatrix[1:n.peak, i] <- intensity[loc, i]
+        if (n.peak != 0) {
+	        pxmatrix[1:n.peak, i] <- switch(xaxis, mass=mz[loc], time=loc)
+	        pymatrix[1:n.peak, i] <- intensity[loc, i]
+        }
       }
     }
     else if (process=="msPeak" && !use.mean){
@@ -684,7 +686,7 @@ if (is.R()){
     }
   }
 
-  main <- paste(process, "for", deparse(substitute(x)))
+#  main <- paste(process, "for", deparse(substitute(x)))
   msPlot(matlines=z$matlines, matpoints=z$matpoints, abline=z$abline,
     text=z$text, main=main, xlab=xlab, ylab="intensity", offset=offset, ...)
   invisible(x)

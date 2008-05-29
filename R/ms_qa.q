@@ -14,9 +14,13 @@
 "msQualify" <- function(x, FUN="princomp", ...)
 {
   # principal component analysis
+  d <- dim(x)
+	n <- d[1]	
+	p <- d[2]
+		
   FUN <- if (is.R()) "princomp" else match.arg(FUN, choices=c("princomp", "princompRob"))
   x.prc <- switch(FUN,
-    princomp    = princomp(x, ...),
+    princomp    = if (!is.R() || n>p) princomp(x, ...) else  princomp2(x, ...),
     princompRob	= princompRob(x, ...))
 
   # construct return value

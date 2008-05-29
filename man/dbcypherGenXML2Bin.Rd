@@ -62,8 +62,5 @@ cypherGenXMList2BinBlocks(x, pattern, tof = FALSE, maxRows = 10000,
 }
 \author{ Y. Alex Chen <ychen@insightful.com> }
 \seealso{ \link{readBinMatrix}, \link{writeBinBlocks}, \link{importBin2Sqlite} }
-\examples{
-
-}
 \keyword{ interface }
 \keyword{ database }

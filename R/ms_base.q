@@ -11,9 +11,14 @@
 ##############################################################
  
 "msDetrend" <- function(x, FUN="loess",
-  type="intensity", pre=NULL, MARGIN=2, attach.base=TRUE, 
+  attach.base=TRUE, 
   event="Baseline Correction", ...)
 {
+	# setup
+	type <- "intensity"
+	MARGIN <- 2
+	pre <- NULL
+	
   # initialize variables
   supported <- c("loess", "spline", "supsmu", "approx", "monotone", "mrd")
 

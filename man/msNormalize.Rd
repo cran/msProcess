@@ -11,7 +11,7 @@
 \alias{msNormalize}
 \title{Mother Function for Intensity Normalization}
 \concept{intensity normalization}
-\usage{msNormalize(x, FUN="tic", MARGIN=2,
+\usage{msNormalize(x, FUN="tic",
     event="Intensity Normalization", ...)}
 \description{Normalizes the intensity matrix of an \code{msSet} object.}
 
@@ -40,10 +40,10 @@ will be the intensity values of a mass spectrum).
 In either case, the additional arguments \code{...} will be
 passed directly to the specified FUN.}
 
-\item{MARGIN}{The subscripts over which the function is to be applied
-to the intensity matrix.
-Default: 2 (\code{FUN} will operate over each column
-of the intensity matrix).}
+%\item{MARGIN}{The subscripts over which the function is to be applied
+%to the intensity matrix.
+%Default: 2 (\code{FUN} will operate over each column
+%of the intensity matrix).}
 
 \item{event}{A character string denoting the name of the
 event to register with the (embedded) event history object of the input

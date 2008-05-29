@@ -11,7 +11,7 @@
 \alias{msDenoise}
 \title{Mother Function for Mass Spectra Denoising}
 \concept{noise reduction}
-\usage{msDenoise(x, FUN="wavelet", MARGIN=2, type="intensity",
+\usage{msDenoise(x, FUN="wavelet",
     attach.noise=TRUE, event="Denoising", ...)}
 \description{Denoise spectra with various functions.}
 
@@ -41,13 +41,13 @@ will be the intensity values of a mass spectrum).
 In either case, the additional arguments \code{...} will be
 passed directly to the specified FUN.}
 
-\item{MARGIN}{The subscripts over which the function is to be applied
-to the data defined by \code{type}.
-For example, if \code{type="intensity"}, the  data is
-defined by the intensity matrix of \code{x} and \code{MARGIN=1}
-indicates rows while \code{MARGIN=2} indicates columns.
-Default: 2 (\code{FUN} will operate over each column
-of the data).}
+%\item{MARGIN}{The subscripts over which the function is to be applied
+%to the data defined by \code{type}.
+%For example, if \code{type="intensity"}, the  data is
+%defined by the intensity matrix of \code{x} and \code{MARGIN=1}
+%indicates rows while \code{MARGIN=2} indicates columns.
+%Default: 2 (\code{FUN} will operate over each column
+%of the data).}
 
 \item{attach.noise}{A logical indicating if the noise removed
 should be attached or not. Default: \code{TRUE}.}
@@ -56,11 +56,11 @@ should be attached or not. Default: \code{TRUE}.}
 event to register with the (embedded) event history object of the input
 after processing the input data. Default: \code{"Denoising"}.}
 
-\item{type}{A character string defining the type
-of data matrix to extract from \code{x} and operate over.
-The operative data will be \code{x[[type]]} if it exists or, if it does
-not, \code{attr(x, type)} will be used. If neither exists,
-an error is returned. Default: \code{"intensity"}.}
+%\item{type}{A character string defining the type
+%of data matrix to extract from \code{x} and operate over.
+%The operative data will be \code{x[[type]]} if it exists or, if it does
+%not, \code{attr(x, type)} will be used. If neither exists,
+%an error is returned. Default: \code{"intensity"}.}
 }
 
 \value{

@@ -17,6 +17,7 @@
 
 #------------------------------------------------------------------------------
 # select the entire set of spectra for the following processing
+  data(Breast2003QC, package="msBreast") 
   z <- Breast2003QC
   
 #------------------------------------------------------------------------------  

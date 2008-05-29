@@ -12,7 +12,7 @@
 \title{Baseline Correction}
 \concept{baseline correction}
 \usage{msDetrend(x, FUN="loess",
-    type="intensity", pre=NULL, MARGIN=2, attach.base=TRUE,
+    attach.base=TRUE,    
     event="Baseline Correction", ...)}
 \description{Estimate and subsequently subtract the baselines from mass spectra.
 The basic technique for baseline estimation is to fit a curve locally
@@ -59,13 +59,13 @@ will be the noise estimates of a mass spectrum).
 In either case, the additional arguments \code{...} will be
 passed directly to the specified routine.}
 
-\item{MARGIN}{The subscripts over which the function is to be applied
-to the data defined by \code{type}.
-For example, if \code{type="intensity"}, the  data is
-defined by the intensity matrix of \code{x} and \code{MARGIN=1}
-indicates rows while \code{MARGIN=2} indicates columns.
-Default: 2 (FUN will operate over each column
-of the data).}
+%\item{MARGIN}{The subscripts over which the function is to be applied
+%to the data defined by \code{type}.
+%For example, if \code{type="intensity"}, the  data is
+%defined by the intensity matrix of \code{x} and \code{MARGIN=1}
+%indicates rows while \code{MARGIN=2} indicates columns.
+%Default: 2 (FUN will operate over each column
+%of the data).}
 
 \item{attach.base}{A logical value specifying if the estimated baseline needs to be attached
 as an element to the output, and the default is \code{T}.
@@ -75,14 +75,14 @@ It has to be \code{T} if you want to visualize the baseline.}
 event to register with the (embedded) event history object of the input
 after processing the input data. Default: \code{"Baseline Correction"}.}
 
-\item{pre}{A function that is applied to the data defined by \code{type} prior to
-processing it with the function defined by \code{FUN}.
-Default: \code{NULL} (no function is applied a priori).}
+%\item{pre}{A function that is applied to the data prior to
+%processing it with the function defined by \code{FUN}.
+%Default: \code{NULL} (no function is applied a priori).}
 
-\item{type}{A character string defining the type
-of data matrix to extract from \code{x} and operate over.
-The operative data will be \code{x[[type]]} if it exists.
-Default: \code{"intensity"}.}
+%\item{type}{A character string defining the type
+%of data matrix to extract from \code{x} and operate over.
+%The operative data will be \code{x[[type]]} if it exists.
+%Default: \code{"intensity"}.}
 }
 
 \value{

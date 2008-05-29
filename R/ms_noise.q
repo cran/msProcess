@@ -15,9 +15,13 @@
 ##  Mother denoising function: msDenoise
 ################################################
 
-"msDenoise" <- function(x, FUN="wavelet", MARGIN=2, type="intensity",
+"msDenoise" <- function(x, FUN="wavelet", 
  attach.noise=TRUE, event="Denoising", ...)
 {
+	# setup
+	type <- "intensity"
+	MARGIN <- 2
+	
   # initialize variables
   supported <- c("wavelet", "smooth", "mrd")
 
@@ -50,8 +54,8 @@
   if (is.character(FUN) && FUN == "msDenoiseMRD"){
 
     # get list of all args passed into child function
-	  p <- mergeList(formals(msDenoiseMRD), mergeList(c(formals(msDenoise),list(...)),
-	    as.list(match.call())[-1]))
+	  p <- mergeList(formals(msDenoiseMRD), mergeList(as.list(match.call())[-1],
+	  	c(formals(msDenoise),list(...))))
 
     x <- msSet(x, mrd=p[c("wavelet","levels","xform","reflect","keep.smooth",
       "normalize")])
@@ -287,9 +291,13 @@
 #########################################################
 
 "msNoise" <- function(x, FUN="spline",
-  MARGIN=2, type="noise", pre=abs, detach.noise=FALSE,
+  pre=abs, detach.noise=FALSE,
   event="Local Noise Estimation", ...)
 {
+	# setup
+	type <- "noise"
+	MARGIN <- 2
+	
   # initialize variable
   supported <- c("spline", "supsmu", "ksmooth", "loess", "mean")
 

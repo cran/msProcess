@@ -75,8 +75,12 @@ are
 where \code{x} is a vector of smallest-scale CWT coefficients whose time indices are near that of the branch termination time.
 See the \code{\link[wmtsa]{wavCWTPeaks}} function for more details. Default: \code{"quantile"}.}
 
-\item{noise.min}{The minimum allowed estimated local noise level. See the \code{\link[wmtsa]{wavCWTPeaks}} function for more details.
-Default: \code{quantile(attr(x,"noise"), prob=0.05)}, where \code{x} is the input \code{wavCWTTree} object.}
+\item{noise.min}{The minimum allowed estimated local noise level. 
+Values must be between 0 and 1 inclusive. Default \code{NULL} corresponds to 0.05.
+It is converted to raw scale before passed to \code{\link[wmtsa]{wavCWTPeaks}}:
+\code{quantile(attr(x,"noise"), prob=0.05)}, 
+where \code{x} is the input \code{wavCWTTree} object.
+}
 
 \item{noise.span}{The span in time surrounding each branche's temrination point to use in forming
 local noise estimates and (ultimately) peak SNR estimates. See the \code{\link[wmtsa]{wavCWTPeaks}} function for more details.

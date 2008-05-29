@@ -23,6 +23,7 @@
 
 #------------------------------------------------------------------------------
 # select a few spectra for the following processing
+  data(Breast2003QC, package="msBreast")
   z <- Breast2003QC[, 1:24]
   
 #------------------------------------------------------------------------------  
@@ -82,7 +83,8 @@
   ncol(count.matrix.z)
   
   # histogram showing the number of peaks found in multiple spectra
-  barplot(tabulate(colSums(count.matrix.z>0)), names=as.character(1:24), yaxs="e", 
+  # Note: axis style "e" unimplemented in R
+  barplot(tabulate(colSums(count.matrix.z>0)), names=as.character(1:24), #yaxs="e", 
     main="peak distribution", xlab="number of spectra", ylab="number of peaks")
     
 #==============================================================================

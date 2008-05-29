@@ -18,13 +18,18 @@
   library("msProcess")
   
 # display and browse the online help files
-  help(library="msProcess")	# or msHelp(section="proteome")
+  if (!is.R()) {
+  	help(library="msProcess")	# or msHelp(section="proteome")
+  } else {
+  	help(topic="msProcess")
+  }
   
 #------------------------------------------------------------------------------ 
 # explore the build-in dataset qcset
-  # print out the summary of qcset            
-  qcset           
-          
+  # print out the summary of qcset
+  data(qcset, package="msProcess")
+  qcset
+
   # plot the entire set of spectra by setting the interspectrum offset manually       
   plot(qcset, subset=NULL, offset=1000)
   

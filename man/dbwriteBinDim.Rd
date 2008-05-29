@@ -35,7 +35,5 @@ writeBinBlocks(x, pattern, maxRows=10000, path=".", what = c("double", "integer"
 }
 \author{ Y. Alex Chen <ychen@insightful.com> }
 \seealso{ \link[base:readBin]{writeBin}, \link{readBinMatrix}, \link{importBin2Sqlite} }
-\examples{
-}
 \keyword{ interface }
 \keyword{ file }

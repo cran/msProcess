@@ -11,7 +11,7 @@
 \alias{msPeak}
 \title{Mother Function for Peak Detection}
 \concept{peak detection}
-\usage{msPeak(x, FUN="simple", MARGIN=2, type="intensity",
+\usage{msPeak(x, FUN="simple",
     use.mean=FALSE, event="Peak Detection", ...)}
 \description{This function detects peaks in a set of mass spectra.}
 
@@ -29,18 +29,18 @@ the wavelet-based multiresolution decomposition as output by
 \code{msPeakMRD} function for more details.
 Default: \code{"simple"}.}
 
-\item{MARGIN}{The subscripts over which the function is to be applied
-to the data defined by \code{type}.
-Default: 2 (FUN will operate over each column of the data).}
+%\item{MARGIN}{The subscripts over which the function is to be applied
+%to the data defined by \code{type}.
+%Default: 2 (FUN will operate over each column of the data).}
 
 \item{event}{A character string denoting the name of the
 event to register with the (embedded) event history object of the input
 after processing the input data. Default: \code{"Peak Detection"}.}
 
-\item{type}{A character string defining the type
-of data matrix to extract from \code{x} and operate over.
-The operative data will be \code{x[[type]]} if it exists.
-Default: \code{"intensity"}.}
+%\item{type}{A character string defining the type
+%of data matrix to extract from \code{x} and operate over.
+%The operative data will be \code{x[[type]]} if it exists.
+%Default: \code{"intensity"}.}
 
 \item{use.mean}{A logical value specifying if to detect peaks in the mean spectum.
 Default: \code{FALSE}.}

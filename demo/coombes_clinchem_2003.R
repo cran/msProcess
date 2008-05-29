@@ -18,6 +18,7 @@
   
 #==============================================================================
 # use the first 24 spectra to establish a reproducible proteomics profile
+	data(Breast2003QC, package="msBreast")
   z <- Breast2003QC[, 1:24]
   
 #------------------------------------------------------------------------------  
@@ -123,7 +124,8 @@
   ncol(count.matrix.z)
   
   # histogram showing the number of peaks found in multiple spectra
-  barplot(tabulate(colSums(count.matrix.z>0)), names=as.character(1:24), yaxs="e", 
+  # Note: axis style "e" unimplemented in R
+  barplot(tabulate(colSums(count.matrix.z>0)), names=as.character(1:24), #yaxs="e", 
     main="peak distribution", xlab="number of spectra", ylab="number of peaks")
 
   # quantile-quantile plots comparing the heights of the detected peaks
@@ -131,7 +133,7 @@
   par(mfrow=c(2,2))
   trans1 <- intensity.matrix.z
   qqnorm(trans1, ylab="original");    qqline(trans1)
-  trans2 <- log(intensity.matrix.z)
+  trans2 <- log(intensity.matrix.z + .Machine$double.eps)
   qqnorm(trans2, ylab="log");         qqline(trans2)  
   trans3 <- sqrt(intensity.matrix.z)
   qqnorm(trans3, ylab="square root"); qqline(trans3)

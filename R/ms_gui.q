@@ -1,4 +1,63 @@
-msLaunchExample <- function(x, open=TRUE, run=TRUE, 
+################################################
+## S+Proteome GUI functions
+##
+##  msLogic
+##	msLaunchExample
+##  
+################################################
+
+###
+# msLogic
+###
+
+"msLogic" <- function(x, process="msDenoise")
+{
+	## sanity checks
+  if (!is(x,"msSet"))
+    stop("input 'x' must be of class msSet")
+  if (!is.character(process))
+  	stop("input 'process' must be of class character")
+
+	switch(process,
+		"msDenoise"={
+			supported <- c("wavelet", "smooth", "mrd")
+		},
+		"msNoise"={
+			supported <- c("spline", "supsmu", "ksmooth", "loess", "mean")
+		  if (!is.element("noise", names(x))) NULL
+		  else supported
+		},
+		"msDetrend"={
+			supported <- c("loess", "spline", "supsmu", "approx", "monotone", "mrd")
+		},
+		"msNormalize"={
+			supported <- c("tic", "snv")
+		},
+		"msPeak"={
+			supported <- c("simple", "search", "cwt", "mrd")
+	  	if (is.null(x$mrd) || length(x$mrd$levels) != 1) supported[-4]
+	  	else supported
+		},
+		"msAlign"={
+			supported <- c("cluster", "gap", "vote", "mrd")
+			if (is.null(x$peak.list)) NULL
+			else supported
+		},
+		"msQuantify"={
+			supported <- c("intensity", "count")
+			if (is.null(x$peak.class)) NULL
+			else if (is.null(x$peak.list)) supported[-2]
+			else supported
+		},
+		stop("process must be either 'msDenoise', 'msNoise', 'msDetrend',
+			'msNormalize', 'msPeak', 'msAlign', or 'msQuantify'")
+	)
+}
+
+###
+# msLaunchExample
+###
+"msLaunchExample" <- function(x, open=TRUE, run=TRUE, 
 		type="R-ex")
 {
 	# check input arguments
