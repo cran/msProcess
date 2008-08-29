@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSDenoise.q#11 $
-## $DateTime: 2008/05/13 13:33:48 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSDenoise.q#14 $
+## $DateTime: 2008/08/29 16:56:49 $
 
 menuMSDenoise = function(x, 							#1 mother function
 						 FUN = "wavelet", 				#2 mother function
@@ -25,34 +25,20 @@ menuMSDenoise = function(x, 							#1 mother function
 						 printObj = T, 					#22 display tab
 						 printHistory = T, 				#23 display tab
 						 plotResult = T, 				#24 display tab
-						 plot.xaxis.variable = "time",	#25 display tab
+						 plot.xaxis.variable = "mass",	#25 display tab
 						 plot.spectra.subset = 1,		#26 display tab
 						 plot.spectra.offset = NULL, 	#27 display tab
 						 imageResult = T,				#28 display tab
-						 image.xaxis.variable = "time",	#29 display tab					 
+						 image.xaxis.variable = "mass",	#29 display tab					 
 						 image.spectra.subset = NULL	#30 display tab
 						 ){
-						 	
+					 	
 	out = switch(FUN,
 			"smooth" = msDenoise(x = x, FUN = "smooth", twiceit = twiceit, 
 								 attach.noise = attach.noise, process = "msDenoiseSmooth"),
 								 
 			"mrd" = {
-				if(is.all.white(levels)){
-					guiDisplayMessageBox("Must enter a set of positive integers for the levels.",
-      									 button = c("Ok"),
-										 icon = c("error"))
-				}
-				if(length(grep(",", levels))){
-					if(length(grep("c", levels))) levels = eval(parse(text = levels))
-					else levels = eval(parse(text = paste("c(", levels, ")")))
-					
-				} else  { #if(length(grep(" ", levels)))
-						ll = unlist(unpaste(levels, sep = " "))
-						ll = ll[ll != ""]
-						levels = eval(parse(text = paste("c(", paste(ll, collapse = ","), ")")))
-				}
-										 						 
+				levels = parseVectorString(levels)								 						 
 				msDenoise(x = x, FUN = "mrd", attach.noise = attach.noise,
 							  event = event, wavelet = waveletMRD, xform = xformMRD, 
 							  reflect = reflectMRD, levels = levels, keep.details = keep.details, 
@@ -60,15 +46,20 @@ menuMSDenoise = function(x, 							#1 mother function
 			}, 				 
 			"wavelet" = {
 				thresh.scale = as.numeric(thresh.scale)
-				n.level = as.numeric(n.level)
-				if(!is.null(noise.variance)) noise.variance = as.numeric(noise.variance)
+				n.level = as.numeric(n.level)		
+				if(!is.null(noise.variance)) {
+					if(noise.variance == "<Auto>") noise.variance = NULL
+					else noise.variance = as.numeric(noise.variance)
+				}
 				msDenoise(x = x, FUN = "wavelet", attach.noise = attach.noise,
 								  event = event, assign.attributes = assign.attributes,
 								  n.level = n.level, shrink.fun = shrink.fun, thresh.fun = thresh.fun,
 								  thresh.scale = thresh.scale, noise.variance = noise.variance, 
 								  wavelet = wavelet, xform = xform, reflect = reflect,
 								  process="msDenoiseWavelet")
-			})
+			},
+			stop("FUN must be one of 'smooth', 'mrd' or 'wavelet'")				
+			)
 								  
 	assign(saveAs, out, where = 1)
 	if(printObj) print(out)

@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSAlign.q#3 $
-## $DateTime: 2008/05/28 14:31:33 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSAlign.q#4 $
+## $DateTime: 2008/08/27 10:44:32 $
 
 menuMSAlign = function( x, 								#1 mother function
 						FUN = "cluster", 				#2 mother function
@@ -12,11 +12,11 @@ menuMSAlign = function( x, 								#1 mother function
 						printObj = T, 					#9 display tab
 						printHistory = T, 				#10 display tab
 						plotResult = T, 				#11 display tab
-						plot.xaxis.variable = "time",	#12 display tab
+						plot.xaxis.variable = "mass",	#12 display tab
 						plot.spectra.subset = 1,		#13 display tab
 						plot.spectra.offset = NULL, 	#14 display tab
 						imageResult = T,				#15 display tab
-						image.xaxis.variable = "time",	#16 display tab					 
+						image.xaxis.variable = "mass",	#16 display tab					 
 						image.spectra.subset = NULL		#17 display tab
 						){
 						 	

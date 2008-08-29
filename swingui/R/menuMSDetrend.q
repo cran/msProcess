@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSDetrend.q#6 $
-## $DateTime: 2008/05/13 15:59:33 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSDetrend.q#8 $
+## $DateTime: 2008/08/27 10:44:32 $
 
 menuMSDetrend = function(x, 								#1 
 						 FUN = "loess", 					#2 
@@ -28,19 +28,14 @@ menuMSDetrend = function(x, 								#1
 						 printObj = T, 						#25 
 						 printHistory = T,					#26 
 						 plotResult = T,					#27
-						 plot.xaxis.variable = "time",		#28
+						 plot.xaxis.variable = "mass",		#28
 						 plot.spectra.subset = 1,			#29 display tab
 						 plot.spectra.offset = NULL, 		#30 display tab
 						 imageResult = T,					#31 display tab
-						 image.xaxis.variable = "time",		#32 display tab					 
+						 image.xaxis.variable = "mass",		#32 display tab					 
 						 image.spectra.subset = NULL		#33 display tab
 						 )
 {
-
-	out = msDetrend(x = x, 
-				  	FUN = FUN, 
-				  	attach.base = attach.base, 
-				  	event = event)
 
 	out = switch(FUN,
 	
@@ -113,7 +108,9 @@ menuMSDetrend = function(x, 								#1
 					  span = supsmu.span,
 					  periodic = supsmu.periodic,
 					  bass = supsmu.bass)
-		})				  
+		})
+		
+	## save				  
 	assign(saveAs, out, where = 1)
 
 	## print if requested

@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/loadMSMenu.q#2 $
-## $DateTime: 2008/05/15 15:42:46 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/loadMSMenu.q#12 $
+## $DateTime: 2008/08/27 12:07:31 $
 
 loadMSMenu = function(){
   statMenuLoc <-
@@ -103,11 +103,11 @@ loadMSMenu = function(){
 	demo      <- data.frame(filename=demofiles[ix], brief=demoBriefs[ix], stringsAsFactors=FALSE)
 	    
 	# demo submenu
-	createMenu(demoMenuPath, "&Demo", Type="Menu")   
+	createMenu(demoMenuPath, "&Demo Scripts", Type="Menu")   
 	createScriptMenus(demo, demoMenuPath, type="demo")
 	        
 	# examples submenu
-	createMenu(exampleMenuPath, "R-ex", Type="Menu")
+	createMenu(exampleMenuPath, "Helpfile Examples", Type="Menu")
 	createScriptMenus(Rex, exampleMenuPath, type="R-ex")
 	    
 	# manuals submenu
@@ -126,7 +126,59 @@ loadMSMenu = function(){
             Type = "Separator",
             Action = "None")
 
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "MSImport", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            Command = "menuMSImport",
+            ShowDialogOnRun = T,
+            MenuItemText = "&Import Spectra...",
+            StatusBarText = "Import mass spectrum files from directory",
+			EnableMenuItem = T)
 
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "PlotMSList", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            Command = "menuMSDisplayMSList",
+            ShowDialogOnRun = T,
+            MenuItemText = "&Display msList...",
+            StatusBarText = "Plot individual spectra from msList object",
+			EnableMenuItem = T)
+
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "MSFilterMSList", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            Command = "menuMSFilterMSList",
+            ShowDialogOnRun = T,
+            MenuItemText = "&Filter msList Object...",
+            StatusBarText = "Filter/subset msList object",
+			EnableMenuItem = T)
+
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "MSMergeMSList", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            Command = "menuMSMergeMSList",
+            ShowDialogOnRun = T,
+            MenuItemText = "&Merge msList Objects...",
+            StatusBarText = "Merge msList objects",
+			EnableMenuItem = T)
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "Separator2", sep = "$"),
+            Type = "Separator",
+            Action = "None")
+            
+            		
   guiCreate("MenuItem",
             Name = paste(MSProcessMenuName, "Prepare", sep = "$"),
             Type = "MenuItem",
@@ -134,12 +186,24 @@ loadMSMenu = function(){
             Action = "Function",
             Command = "menuMSPrepare",
             ShowDialogOnRun = T,
-            MenuItemText = "&Prepare...",
+            MenuItemText = "&Prepare msSet...",
             StatusBarText = "Prepare mass spec data",
 			EnableMenuItem = T)
 
   guiCreate("MenuItem",
-            Name = paste(MSProcessMenuName, "Separator2", sep = "$"),
+            Name = paste(MSProcessMenuName, "MSFilterMSSet", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            Command = "menuMSFilterMSSet",
+            ShowDialogOnRun = T,
+            MenuItemText = "&Filter msSet Object...",
+            StatusBarText = "Filter/subset msSet object",
+			EnableMenuItem = T)
+
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "Separator3", sep = "$"),
             Type = "Separator",
             Action = "None")
 
@@ -220,7 +284,7 @@ loadMSMenu = function(){
 		    Action = "Function",
 		    MenuItemText = "Peak Alignment...",
 		    StatusBarText = "Peak alignment",
-		    Command = "menuMSPeakAlign",
+		    Command = "menuMSAlign",
 		    CommandParameters = "",
 		    ShowDialogOnRun = T,
 		    AlwaysUseDefaults = T,
@@ -235,7 +299,7 @@ loadMSMenu = function(){
 		    Action = "Function",
 		    MenuItemText = "Peak Quantification...",
 		    StatusBarText = "Peak quantification",
-		    Command = "menuMSPeakQuant",
+		    Command = "menuMSQuantify",
 		    CommandParameters = "",
 		    ShowDialogOnRun = T,
 		    AlwaysUseDefaults = T,
@@ -243,6 +307,33 @@ loadMSMenu = function(){
 		    Deletable = T,
 		    Overwrite = F,
 		    EnableMenuItem = T)	
-		    
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "Separator4", sep = "$"),
+            Type = "Separator",
+            Action = "None")
+
+  guiCreate("MenuItem",
+            Name = paste(MSProcessMenuName, "DisplayMSSet", sep = "$"),
+            Type = "MenuItem",
+            DocumentType = "Any Documents",
+            Action = "Function",
+            MenuItemText = "&Display msSet...",
+            StatusBarText = "Display an msSet object",
+            Command = "menuMSDisplayMSSet",
+            ShowDialogOnRun = T,
+			EnableMenuItem = T)           
+
+#  guiCreate("MenuItem",
+#            Name = paste(MSProcessMenuName, "ImageMSSet", sep = "$"),
+#            Type = "MenuItem",
+#            DocumentType = "Any Documents",
+#            Action = "Function",
+#            MenuItemText = "&Image msSet...",
+#            StatusBarText = "Image an msSet object",
+#            Command = "menuMSImageMSSet",
+#            ShowDialogOnRun = T,
+#			EnableMenuItem = T)                       
+            		    
  invisible()
 }	    

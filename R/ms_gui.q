@@ -1,10 +1,56 @@
 ################################################
 ## S+Proteome GUI functions
 ##
+##	msVisual
+##	msObjects
 ##  msLogic
 ##	msLaunchExample
 ##  
 ################################################
+
+###
+# msVisual
+###
+
+"msVisual" <- function(x, FUN="plot")
+{
+	## sanity checks
+  if (!is(x,"msSet"))
+    stop("input 'x' must be of class msSet")
+    
+	ans <- switch (match.arg(FUN, choices=c("plot", "image")),
+		"plot" = {
+			processes <- c("msDenoise", "msNoise", "msDetrend", "msNormalize", "msPeak", "msAlign")
+			elements <- c("noise", "noise.local", "baseline", "tic", "peak.list", "peak.class")
+			c("msPrepare", processes[is.element(elements, names(x))])
+		},
+		"image" = {
+			elements <- c("noise", "noise.local", "baseline", "peak.list", "peak.matrix")
+			c("spectra", elements[is.element(elements, names(x))])
+		})
+		
+	## list the last process first
+	rev(ans)
+}
+
+###
+# msObjects
+###
+"msObjects" <- function(process="msDenoise")
+{
+	# TODO: an alternative is to use the "test" argument of the "objects" function
+	if (!is.R()) {
+		obs <- objects(classes="msSet")
+	} else {
+		obs <- objects()
+		obs <- obs[sapply(obs, function(x) class(eval(as.name(x))))=="msSet"]
+	}
+	if (length(obs)==0) return(character(0))
+	mds <- lapply(obs, function(x, process) msLogic(eval(as.name(x)), process), 
+		process=process)
+	ind <- (sapply(mds, length)!=0)
+	obs[ind]
+}
 
 ###
 # msLogic

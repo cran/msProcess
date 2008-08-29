@@ -288,7 +288,12 @@
     yrefmin <- ifelse1(ylim[1] > 0, min(ystart), 0)
     yoffset <- cumsum(c(yrefmin, rep(offset,length(ygroup)-1)))
     y1      <- rep(yoffset, ygroup[1])
-    color   <- rep(seq(ygroup),ygroup[1])
+    color   <-	if (!is.atomic(data[[1]][[1]])){ # list of lists
+    							data[[1]][[1]]$col
+    						}	else { # single list
+    							data[[1]]$col	
+    						} 						
+    if (is.null(color)) color <- rep(seq(ygroup),ygroup[1])
 
     for (i in seq(along=ystart)){
       lines(approx(c(par("usr")[1], xstart[i]), c(y1[i], ystart[i]), n=5),

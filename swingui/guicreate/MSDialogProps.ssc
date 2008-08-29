@@ -1,12 +1,805 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/guicreate/MSDialogProps.ssc#3 $
-## $DateTime: 2008/05/28 14:07:32 $
+# $Id: //depot/Research/msProcess/pkg/msProcess/swingui/guicreate/MSDialogProps.ssc#35 $
+## $DateTime: 2008/08/29 16:56:49 $
 
 #  MSDialogProps = function(){
 	
   propPath <- "MSProcess.prp"
   infoPath <- "MSProcess.fni"  
+
+
+  ## Create a counter for spaces within dialogs
+  currentSpaces <- list(numberOfSpaces = 0)
+
+  createSpaces <- function(currentSpaces, n) {
+    i <- currentSpaces[["numberOfSpaces"]]
+    spaceNames <- paste("MSSpace", (i + 1):(i + n), sep = "")
+    for(j in 1:n) {
+      guiCreate("Property",
+                Name = spaceNames[j],
+                Type = "Normal",
+                DialogControl = "New Line")
+    }
+    return(list(numberOfSpaces = i + n, spaceNames = spaceNames))
+  }
+
+#######################
+#####  msImport  ######
+#######################
+
+
+	 guiCreate("Property",
+	 	name = "MSImportDirName",
+	 	DialogControl = "Wide String",
+	 	DialogPrompt = "Directory &Name:",
+	 	DefaultValue = "",
+	 	IsRequired = T,
+	 	UseQuotes=T )
+	 
+	# MSImportBrowseDirButton
+	 guiCreate("Property",
+	 	Name = "MSImportBrowseDirButton",
+	 	Type = "Normal",
+	 	DialogPrompt = "&Browse",
+	 	DialogControl = "Button" )
+	 	
+  guiCreate("Property",
+            Name = "MSImportFileType",
+            Type = "Normal",
+            DefaultValue = "ASCII",
+            DialogPrompt = "&File Type:",
+            DialogControl = "List Box",
+            OptionList = paste(c("ASCII", 
+            					 "CiphergenXML",
+            					 "EPI",
+            					 "EXCEL",
+            					 "EXCELX",
+            					 "FASCII",
+            					 "FOXPRO",
+            					 "GAUSS",
+            					 "GAUSS96",
+            					 "LOTUS",
+            					 "MATLAB",
+            					 "MINITAB",
+            					 "PARADOX",
+            					 "QUATTRO",
+            					 "SAS",
+            					 "SAS6WIN",
+            					 "SAS1",
+            					 "SAS6UX32",
+            					 "SAS4",
+            					 "SAS6UX64",
+            					 "SAS7",
+            					 "SAS7WIN",
+            					 "SAS7UX32",
+            					 "SAS7UX64",
+            					 "SAS_CPORT",
+            					 "SAS_TPT",
+            					 "SIGMAPLOT",
+            					 "SPLUS",
+            					 "SPSS",
+            					 "STATA",
+            					 "SYSTAT"),
+            					 collapse = ","),
+            					
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+### File type left out - don't want to do data base connections
+#            					 "DBASE", 
+#            					 "DIRECT-DB2", 
+#            					 "DIRECT-ORACLE", 
+#            					 "DIRECT-SQL", 
+#            					 "DIRECT-SYBASE",
+#            					 "SYBASE", 	 	
+#            					 "ODBC",
+#            					 "ORACLE",
+
+
+  guiCreate("Property",
+            Name = "MSImportFilterPattern",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            DialogPrompt = "Filter Pattern:",
+            DialogControl = "Combo Box",
+            OptionList = "<All>, txt, csv, xml",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = T)
+
+
+  guiCreate("Property",
+            Name = "MSImportDataSelectGroup",
+            Type = "WideGroup",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c(	"MSImportDirName",
+            						"MSImportBrowseDirButton", 
+            						"MSImportFileType",
+            						"MSImportUseFileFilter",
+            						"MSImportFilterPattern" ),
+            				 	 collapse = ", "),
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSImportFileList",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "Select Files:",
+            DialogControl = "Multi-select List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+ 
+   guiCreate("Property",
+            Name = "MSImportUseFileFilter",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Select Files With Filter",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)           
+
+#  guiCreate("Property",
+#            Name = "MSImportDataOptionsGroup",
+#            Type = "Group",
+#            DialogPrompt = "File Filter",
+#            PropertyList = paste(c(	"MSImportFilterPattern"),
+#            				 	 collapse = ", "),
+#            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSImportProcessLabel",
+            Type = "Normal",
+            DefaultValue = "unclassified",
+            ParentProperty = "",
+            DialogPrompt = "Group Label:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSImportPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Brief Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+            
+  guiCreate("Property",
+            Name = "MSImportPrintSummary",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Detailed Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSImportOutputOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Output Options",
+            PropertyList = paste(c( "MSImportProcessLabel",
+            						"MSImportPrintObject",
+            						"MSImportPrintSummary"), 
+            						collapse = ","), 
+            SavePathName = propPath)                        
+
+
+  guiCreate("Property",
+            Name = "MSImportSaveAs",
+            Type = "Normal",
+            DefaultValue = "my.msList",
+            ParentProperty = "",
+            DialogPrompt = "Save As:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSImportSaveAsGroup",
+            Type = "Group",
+            DialogPrompt = "Save msList Object",
+            PropertyList = paste(c( "MSImportSaveAs"), 
+            						collapse = ","), 
+            SavePathName = propPath)
+            
+
+  currentSpaces <- 	createSpaces(currentSpaces, n = 2)
+  importSpaces1 <- currentSpaces[["spaceNames"]]
+  
+  currentSpaces <- createSpaces(currentSpaces, n = 1)
+  importSpaces2 <- currentSpaces[["spaceNames"]]
   
 
+## use guiShowStandardFileDialog(dialogType = "folder") 
+##    or guiDisplayFileDialog() functions to open a file browser
+
+###############################################
+####  FunctionInfo for menuMSImport  ####
+###############################################  
+
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSImport",
+            Function = "menuMSImport",
+            DialogHeader = "Import Spectra into msList Object",
+            StatusString = "Import spectra into an msList object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+						"MSImportDataSelectGroup",
+            			"MSImportOutputOptionsGroup",
+            			importSpaces1,
+            			"MSImportFileList",
+            			importSpaces2,
+            			"MSImportSaveAsGroup"),
+            		   collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSImportDirName",
+                    	"#2=MSImportFileType", 
+                    	"#3=MSImportFilterPattern",
+                    	"#4=MSImportFileList",
+                    	"#5=MSImportUseFileFilter",
+                    	"#6=MSImportProcessLabel",
+                    	"#7=MSImportPrintObject",
+            			"#8=MSImportPrintSummary",
+                    	"#9=MSImportSaveAs"),
+                      collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSImport",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)                              
+            
+                       
+
+#######################
+####  plot.msList  ####
+#######################
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListDataSet",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "&Data Set:",
+            DialogControl = "List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListSpectraSubset",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Subset:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "<All>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)            
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c(	"MSDisplayMSListDataSet",
+            						"MSDisplayMSListSpectraSubset"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListDoPlot",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Plot",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSListPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Brief Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSListPrintSummary",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Detailed Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListDisplayOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Display Options",
+            PropertyList = paste(c(	"MSDisplayMSListDoPlot",
+            						"MSDisplayMSListPrintObject",
+            						"MSDisplayMSListPrintSummary"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)                                    
+ 
+  guiCreate("Property",
+            Name = "MSDisplayMSListType",
+            Type = "Normal",
+            DefaultValue = "lines",
+            ParentProperty = "",
+            DialogPrompt = "Plot Symbol:",
+            DialogControl = "Combo Box",
+            OptionList = "lines, points,  both points and lines, overlaid points and lines, stairsteps, high-density vertical lines",
+            CopyFrom = "",
+            HelpString = "", 
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListMfrowRow",
+            Type = "Normal",
+            DefaultValue = "1",
+            ParentProperty = "",
+            DialogPrompt = "Row Layout:",
+            DialogControl = "Combo Box",
+            OptionList = "1, 2, 3, 4, 5, 6, 7",
+            CopyFrom = "",
+            HelpString = "", 
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListMfrowCol",
+            Type = "Normal",
+            DefaultValue = "1",
+            ParentProperty = "",
+            DialogPrompt = "Col Layout:",
+            DialogControl = "Combo Box",
+            OptionList = "1, 2, 3, 4, 5, 6, 7",
+            CopyFrom = "",
+            HelpString = "", 
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSListPlotOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Plot Options",
+            PropertyList = paste(c(	"MSDisplayMSListType",
+            						"MSDisplayMSListMfrowRow",
+            						"MSDisplayMSListMfrowCol"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+
+  currentSpaces <- createSpaces(currentSpaces, n = 1)
+  plotMSListSpaces <- currentSpaces[["spaceNames"]] 
+ 
+#############################################
+####  FunctionInfo for menuMSDisplayMSList  ####
+#############################################  
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSDisplayMSList",
+            Function = "menuMSDisplayMSList",
+            DialogHeader = "Display msList Object",
+            StatusString = "Display an msList object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSDisplayMSListOptionsGroup",
+            			"MSDisplayMSListDisplayOptionsGroup",
+            			"MSDisplayMSListPlotOptionsGroup",
+            			plotMSListSpaces),
+            		   collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSDisplayMSListDataSet",
+                    	"#2=MSDisplayMSListSpectraSubset", 
+                    	"#3=MSDisplayMSListDoPlot",
+            			"#4=MSDisplayMSListPrintObject",
+            			"#5=MSDisplayMSListPrintSummary",
+                    	"#6=MSDisplayMSListType", 
+                    	"#7=MSDisplayMSListMfrowRow",
+                    	"#8=MSDisplayMSListMfrowCol"),
+                      collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSDisplayMSList",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)                              
+
+
+#########################
+####  Filter msList  ####
+#########################
+
+  guiCreate("Property",
+            Name = "MSFilterMSListDataSet",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "&Data Set:",
+            DialogControl = "List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)         
+
+
+  guiCreate("Property",
+            Name = "MSFilterMSListColumns",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            DialogPrompt = "&Select Spectra:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "<All>",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property", 
+		  Name ="MSFilterMSListIncludeExclude",
+		  DefaultValue = "Include",
+		  DialogPrompt = "Action:",
+		  DialogControl = "Radio Buttons",
+		  OptionList = "Include, Exclude", 
+          HelpString = "",
+          SavePathName = propPath,
+          IsRequired = T,
+		  UseQuotes = T,
+		  NoQuotes = F,
+		  IsList = F,
+		  Disable = F)
+            
+            
+  guiCreate("Property",
+            Name = "MSFilterMSListDataSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c( "MSFilterMSListDataSet"),
+            					 collapse = ","),
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSFilterMSListColSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Spectra Filter",
+            PropertyList = paste(c("MSFilterMSListColumns",
+            						"MSFilterMSListIncludeExclude"),
+            					 collapse = ","),
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSFilterMSListPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Brief Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+                                 
+  guiCreate("Property",
+            Name = "MSFilterMSListPrintSummary",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Detailed Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+                                 
+  guiCreate("Property",
+            Name = "MSFilterMSListSaveAs",
+            Type = "Normal",
+            DefaultValue = "",
+            ParentProperty = "",
+            DialogPrompt = "Save As:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSFilterMSListOutputGroup",
+            Type = "Group",
+            DialogPrompt = "Output Options",
+            PropertyList = paste(c( "MSFilterMSListPrintObject",
+            						"MSFilterMSListPrintSummary", 
+            						"MSFilterMSListSaveAs"), 
+            					 collapse = ","),
+            SavePathName = propPath)
+
+###############################################
+####  FunctionInfo for menuMSFilterMSList  ####
+###############################################
+ 
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSFilterMSList",
+            Function = "menuMSFilterMSList",
+            DialogHeader = "Filter Spectra of msList Object",
+            StatusString = "Filter spectra of an msList Object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSFilterMSListDataSelectionGroup",
+            			"MSFilterMSListColSelectionGroup",
+                	    "MSFilterMSListOutputGroup"),
+                  	  collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSFilterMSListDataSet",
+            			"#2=MSFilterMSListColumns",
+            			"#3=MSFilterMSListIncludeExclude",   
+                    	"#4=MSFilterMSListPrintObject",
+                    	"#5=MSFilterMSListPrintSummary",
+                    	"#6=MSFilterMSListSaveAs"),	
+                  	 collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSFilterMSList",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)
+             
+
+########################
+####  merge.msList  ####
+########################
+
+  guiCreate("Property",
+            Name = "MSMergeMSListDataSets",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "&Data Sets:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSMergeDataSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = "MSMergeMSListDataSets",
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSMergeMSListPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Brief Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSMergeMSListPrintSummary",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Detailed Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+                                                                    
+
+  guiCreate("Property",
+            Name = "MSMergeMSListSaveAs",
+            Type = "Normal",
+            DefaultValue = "merged.msList",
+            ParentProperty = "",
+            DialogPrompt = "Save As:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSMergeMSListOutputGroup",
+            Type = "Group",
+            DialogPrompt = "Output Options",
+            PropertyList = paste(c( "MSMergeMSListPrintObject",
+            						"MSMergeMSListPrintSummary", 
+            						"MSMergeMSListSaveAs"), 
+            					 collapse = ","),
+            SavePathName = propPath)
+ 
+
+#########################################
+####  FunctionInfo for merge.msList  ####
+#########################################
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSMergeMSList",
+            Function = "menuMSMergeMSList",
+            DialogHeader = "Merge msList Objects",
+            StatusString = "Create an msList Object from a set of msList Objects",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSMergeDataSelectionGroup",
+                	    "MSMergeMSListOutputGroup"),
+                  	  collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSMergeMSListDataSets",    
+                    	"#2=MSMergeMSListPrintObject",
+                    	"#3=MSMergeMSListPrintSummary",
+                    	"#4=MSMergeMSListSaveAs"),	
+                  	 collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSMergeMSList",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)
+ 
+                       
+            
 ###################
 ####  Prepare  ####
 ###################
@@ -16,7 +809,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "&Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -30,14 +823,14 @@
   guiCreate("Property",
             Name = "MSPrepDataGroup",
             Type = "Group",
-            DialogPrompt = "Data",
+            DialogPrompt = "Data Selection",
             PropertyList = "MSPrepDataSet",
             SavePathName = propPath)
 
   guiCreate("Property",
             Name = "MSPrepMassMin",
             Type = "Normal",
-            DefaultValue = "1500",
+            DefaultValue = "950",
             ParentProperty = "",
             DialogPrompt = "Mass Minimum:",
             DialogControl = "String",
@@ -126,7 +919,7 @@
   guiCreate("Property",
             Name = "MSPrepSaveAs",
             Type = "Normal",
-            DefaultValue = "",
+            DefaultValue = "my.msSet",
             ParentProperty = "",
             DialogPrompt = "Save As:",
             DialogControl = "String",
@@ -134,7 +927,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -180,6 +973,200 @@
             WriteArgNames = T,
             Display = F,
             SavePathName = infoPath)
+
+#########################
+####  Filter msSet   ####
+#########################
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetDataSet",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "&Data Set:",
+            DialogControl = "List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetColumns",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            DialogPrompt = "&Select Spectra:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "<All>",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+guiCreate("Property", 
+		  Name ="MSFilterMSSetColIncludeExclude",
+		  DefaultValue = "Include",
+		  DialogPrompt = "Action:",
+		  DialogControl = "Radio Buttons",
+		  OptionList = "Include, Exclude", 
+          HelpString = "",
+          SavePathName = propPath,
+          IsRequired = T,
+		  UseQuotes = T,
+		  NoQuotes = F,
+		  IsList = F,
+		  Disable = F)
+            
+            
+  guiCreate("Property",
+            Name = "MSFilterMSSetDataSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c( "MSFilterMSSetDataSet"),
+            					 collapse = ","),
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetColSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Spectra Filter",
+            PropertyList = paste(c( "MSFilterMSSetColumns",
+            						"MSFilterMSSetColIncludeExclude"),
+            					 collapse = ","),
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetRowMZMin",
+            Type = "Normal",
+            DefaultValue = "",
+            ParentProperty = "",
+            DialogPrompt = "Min m/z:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetRowMZMax",
+            Type = "Normal",
+            DefaultValue = "",
+            ParentProperty = "",
+            DialogPrompt = "Max m/z:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetRowSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Mass Filter",
+            PropertyList = paste(c( "MSFilterMSSetRowMZMin",
+            						"MSFilterMSSetRowMZMax"),
+            					 collapse = ","),
+            SavePathName = propPath)
+                        
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Object Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+                                  
+
+  guiCreate("Property",
+            Name = "MSFilterMSSetSaveAs",
+            Type = "Normal",
+            DefaultValue = "",
+            ParentProperty = "",
+            DialogPrompt = "Save As:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSFilterMSSetOutputGroup",
+            Type = "Group",
+            DialogPrompt = "Output Options",
+            PropertyList = paste(c( "MSFilterMSSetPrintObject", 
+            						"MSFilterMSSetSaveAs"), 
+            					 collapse = ","),
+            SavePathName = propPath)
+
+###############################################
+####  FunctionInfo for menuMSFilterMSSet   ####
+###############################################
+ 
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSFilterMSSet",
+            Function = "menuMSFilterMSSet",
+            DialogHeader = "Filter Spectra or Mass of msSet Object",
+            StatusString = "Filter spectra or mass of an msSet Object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSFilterMSSetDataSelectionGroup",
+            			"MSFilterMSSetColSelectionGroup",
+            			"MSFilterMSSetRowSelectionGroup",
+                	    "MSFilterMSSetOutputGroup"),
+                  	  collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSFilterMSSetDataSet",
+            			"#2=MSFilterMSSetColumns",
+            			"#3=MSFilterMSSetColIncludeExclude",
+            			"#4=MSFilterMSSetRowMZMin",
+            			"#5=MSFilterMSSetRowMZMax",      
+                    	"#6=MSFilterMSSetPrintObject",
+                    	"#7=MSFilterMSSetSaveAs"),	
+                  	 collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSFilterMSSet",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)
+             
  
  
 ####################
@@ -193,7 +1180,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -217,7 +1204,7 @@
             DefaultValue = "wavelet",
             ParentProperty = "",
             DialogPrompt = "Method:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "smooth, mrd, wavelet",
             CopyFrom = "",
             HelpString = "",
@@ -294,7 +1281,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -355,7 +1342,7 @@
             DefaultValue = "s8",
             ParentProperty = "",
             DialogPrompt = "Wavelet:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = paste(c("haar", "d2", "d4", "d6", "d8", "d10", "d12", "d14",
             					 "d16", "d18", "d20", "s2","s4", "s6", "s8", "s10", "s12", 
             					 "s14", "s16", "s18", "s20", "l2","l4", "l6", "l14", "l18", 
@@ -415,7 +1402,7 @@
             SavePathName = propPath,
             IsRequired = F,
             UseQuotes = F,
-            NoQuotes = F,
+            NoQuotes = T,
             IsList = F,
             Disable = F)
 
@@ -432,7 +1419,7 @@
             SavePathName = propPath,
             IsRequired = F,
             UseQuotes = F,
-            NoQuotes = F,
+            NoQuotes = T,
             IsList = F,
             Disable = F)
 
@@ -449,7 +1436,7 @@
             SavePathName = propPath,
             IsRequired = F,
             UseQuotes = F,
-            NoQuotes = F,
+            NoQuotes = T,
             IsList = F,
             Disable = F)
 
@@ -563,7 +1550,7 @@
             ParentProperty = "",
             DialogPrompt = "Threshold Fun:",
             DialogControl = "List Box",
-            OptionList = "adaptive, minimax, universal",
+            OptionList = "universal",
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
@@ -577,7 +1564,7 @@
   guiCreate("Property",
             Name = "MSDenoiseWaveletThreshScale",
             Type = "Normal",
-            DefaultValue = "1",  
+            DefaultValue = "2",  
             ParentProperty = "",
             DialogPrompt = "Threshold Scale:",
             DialogControl = "String",
@@ -594,7 +1581,7 @@
   guiCreate("Property",
             Name = "MSDenoiseWaveletNoiseVar",
             Type = "Normal",
-            DefaultValue = "",  
+            DefaultValue = "<Auto>",  
             ParentProperty = "",
             DialogPrompt = "Noise Variance:",
             DialogControl = "String",
@@ -715,7 +1702,7 @@
   guiCreate("Property",
             Name = "MSDenoisePlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -795,7 +1782,7 @@
   guiCreate("Property",
             Name = "MSDenoiseImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -917,7 +1904,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -938,10 +1925,10 @@
   guiCreate("Property",
             Name = "MSNoiseFUN",
             Type = "Normal",
-            DefaultValue = "spline",
+            DefaultValue = "mean",
             ParentProperty = "",
             DialogPrompt = "Method:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "mean, ksmooth, loess, spline, supsmu",
             CopyFrom = "",
             HelpString = "",
@@ -964,8 +1951,8 @@
             HelpString = "",
             SavePathName = propPath,
             IsRequired = F,
-            UseQuotes = T,
-            NoQuotes = F,
+            UseQuotes = F,
+            NoQuotes = T,
             IsList = F,
             Disable = F)
 
@@ -999,7 +1986,7 @@
   guiCreate("Property",
             Name = "MSNoiseDetachNoise",
             Type = "Normal",
-            DefaultValue = T,
+            DefaultValue = F,
             ParentProperty = "",
             DialogPrompt = "Detach Noise",
             DialogControl = "Check Box",
@@ -1034,7 +2021,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -1449,7 +2436,7 @@
   guiCreate("Property",
             Name = "MSNoisePlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -1528,7 +2515,7 @@
   guiCreate("Property",
             Name = "MSNoiseImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -1652,7 +2639,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -1674,7 +2661,7 @@
   guiCreate("Property",
             Name = "MSDetrendFUN",
             Type = "Normal",
-            DefaultValue = "loess",
+            DefaultValue = "monotone",
             ParentProperty = "",
             DialogPrompt = "Method:",
             DialogControl = "Combo Box",
@@ -1752,7 +2739,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -1878,7 +2865,7 @@
             DefaultValue = "s8",
             ParentProperty = "",
             DialogPrompt = "Wavelet:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = paste(c("haar", "d2", "d4", "d6", "d8", "d10", "d12", "d14",
             					 "d16", "d18", "d20", "s2","s4", "s6", "s8", "s10", "s12", 
             					 "s14", "s16", "s18", "s20", "l2","l4", "l6", "l14", "l18", 
@@ -2244,7 +3231,7 @@
   guiCreate("Property",
             Name = "MSDetrendPlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -2323,7 +3310,7 @@
   guiCreate("Property",
             Name = "MSDetrendImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -2448,7 +3435,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -2528,7 +3515,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -2623,7 +3610,7 @@
   guiCreate("Property",
             Name = "MSNormalizePlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -2685,7 +3672,7 @@
   guiCreate("Property",
             Name = "MSNormalizeImageResult",
             Type = "Normal",
-            DefaultValue = T,
+            DefaultValue = F,
             ParentProperty = "",
             DialogPrompt = "Image Result",
             DialogControl = "Check Box",
@@ -2701,7 +3688,7 @@
   guiCreate("Property",
             Name = "MSNormalizeImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -2803,7 +3790,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -2837,12 +3824,28 @@
             NoQuotes = F,
             IsList = F,
             Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSPeakUseMean",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Use Mean",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
 
   guiCreate("Property",
             Name = "MSPeakMethodGroup",
             Type = "Group",
             DialogPrompt = "Method Selection",
-            PropertyList = paste(c("MSPeakFUN"),
+            PropertyList = paste(c("MSPeakFUN", "MSPeakUseMean"),
             					  collapse=", "),
             SavePathName = propPath)
  
@@ -2864,27 +3867,10 @@
             Disable = F) 
 
   guiCreate("Property",
-            Name = "MSPeakUseMean",
-            Type = "Normal",
-            DefaultValue = F,
-            ParentProperty = "",
-            DialogPrompt = "Use Mean",
-            DialogControl = "Check Box",
-            CopyFrom = "",
-            HelpString = "",
-            SavePathName = propPath,
-            IsRequired = F,
-            UseQuotes = F,
-            NoQuotes = T,
-            IsList = F,
-            Disable = F)  
-
-  guiCreate("Property",
             Name = "MSPeakOptionsGroup",
             Type = "Group",
             DialogPrompt = "Output Options",
-            PropertyList = paste(c( "MSPeakEventLabel",
-            						"MSPeakUseMean" ),
+            PropertyList = paste(c( "MSPeakEventLabel"),
             				 	 collapse = ", "), 
             SavePathName = propPath)
 
@@ -2899,7 +3885,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -3365,7 +4351,7 @@
   guiCreate("Property",
             Name = "MSPeakPlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -3427,7 +4413,7 @@
   guiCreate("Property",
             Name = "MSPeakImageResult",
             Type = "Normal",
-            DefaultValue = T,
+            DefaultValue = F,
             ParentProperty = "",
             DialogPrompt = "Image Result",
             DialogControl = "Check Box",
@@ -3443,7 +4429,7 @@
   guiCreate("Property",
             Name = "MSPeakImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -3565,7 +4551,7 @@
             Type = "Normal",
             DefaultValue = "",
             DialogPrompt = "Data Set:",
-            DialogControl = "Combo Box",
+            DialogControl = "List Box",
             OptionList = "",
             HelpString = "",
             SavePathName = propPath,
@@ -3601,18 +4587,9 @@
             Disable = F)
 
   guiCreate("Property",
-            Name = "MSAlignMethodGroup",
-            Type = "Group",
-            DialogPrompt = "Method Selection",
-            PropertyList = paste(c("MSAlignFUN"),
-            					  collapse=", "),
-            SavePathName = propPath)
-
-
-  guiCreate("Property",
             Name = "MSAlignMZPrecision",
             Type = "Normal",
-            DefaultValue = "0.003",
+            DefaultValue = "0.004",
             ParentProperty = "",
             DialogPrompt = "mz Precision:",
             DialogControl = "String",
@@ -3646,13 +4623,23 @@
             
             
   guiCreate("Property",
-            Name = "MSAlignOptionsGroup",
+            Name = "MSAlignMethodGroup",
             Type = "Group",
-            DialogPrompt = "Output Options",
-            PropertyList = paste(c("MSAlignMZPrecision",
+            DialogPrompt = "Method Selection",
+            PropertyList = paste(c("MSAlignFUN",
+            						"MSAlignMZPrecision",
             						"MSAlignSNRThreshold"),
             					  collapse=", "),
             SavePathName = propPath) 
+                        
+#  guiCreate("Property",
+#            Name = "MSAlignOptionsGroup",
+#            Type = "Group",
+#            DialogPrompt = "Output Options",
+#            PropertyList = paste(c("MSAlignMZPrecision",
+#            						"MSAlignSNRThreshold"),
+#            					  collapse=", "),
+#            SavePathName = propPath) 
  
   guiCreate("Property",
             Name = "MSAlignSaveAs",
@@ -3665,7 +4652,7 @@
             CopyFrom = "",
             HelpString = "",
             SavePathName = propPath,
-            IsRequired = F,
+            IsRequired = T,
             UseQuotes = T,
             NoQuotes = F,
             IsList = F,
@@ -3686,7 +4673,7 @@
             DialogPrompt = "Data/Method",
             PropertyList =paste(c(  "MSAlignDataGroup",
             						"MSAlignMethodGroup",
-            						"MSAlignOptionsGroup",
+#            						"MSAlignOptionsGroup",
             						"MSAlignSaveAsGroup"),
                 				collapse = ", "),
             SavePathName = propPath)   
@@ -3830,7 +4817,7 @@
   guiCreate("Property",
             Name = "MSAlignPlotXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -3892,7 +4879,7 @@
   guiCreate("Property",
             Name = "MSAlignImageResult",
             Type = "Normal",
-            DefaultValue = T,
+            DefaultValue = F,
             ParentProperty = "",
             DialogPrompt = "Image Result",
             DialogControl = "Check Box",
@@ -3908,7 +4895,7 @@
   guiCreate("Property",
             Name = "MSAlignImageXAxisVariable",
             Type = "Normal",
-            DefaultValue = "time",
+            DefaultValue = "mass",
             ParentProperty = "",
             DialogPrompt = "X-Axis Variable",
             DialogControl = "List Box",
@@ -4003,7 +4990,973 @@
             Display = F,
             SavePathName = infoPath)                      
 
+######################
+####  msQuantify  ####
+######################
+
+####  Data/Method Tab
+  guiCreate("Property",
+            Name = "MSQuantifyDataSet",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "Data Set:",
+            DialogControl = "List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSQuantifyXNew",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "New Data Set:",
+            DialogControl = "Combo Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSQuantifyDataGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c( "MSQuantifyDataSet",
+            						"MSQuantifyXNew"), 
+            					  collapse=", "),
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSQuantifyFUN",
+            Type = "Normal",
+            DefaultValue = "intensity",
+            ParentProperty = "",
+            DialogPrompt = "Method:",
+            DialogControl = "List Box",
+            OptionList = "count, intensity",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSQuantifyMethodGroup",
+            Type = "Group",
+            DialogPrompt = "Method Selection",
+            PropertyList = paste(c("MSQuantifyFUN"),
+            					  collapse=", "),
+            SavePathName = propPath)
+
+#  guiCreate("Property",
+#            Name = "MSQuantifyOptionsGroup",
+#            Type = "Group",
+#            DialogPrompt = "Output Options",
+#            PropertyList = paste(c( "MSQuantifyXNew"), 
+#            					  collapse=", "),
+#            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSQuantifySaveAs",
+            Type = "Normal",
+            DefaultValue = "",
+            ParentProperty = "",
+            DialogPrompt = "Save As:",
+            DialogControl = "String",
+            OptionList = "",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+          
+  guiCreate("Property",
+            Name = "MSQuantifySaveAsGroup",
+            Type = "Group",
+            DialogPrompt = "Save msSet Object with Peaks",
+            PropertyList = "MSQuantifySaveAs",
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSQuantifyMotherTab",
+            Type = "Page", 
+            DialogPrompt = "Data/Method",
+            PropertyList =paste(c(  "MSQuantifyDataGroup",
+            						"MSQuantifyMethodGroup",
+#            						"MSQuantifyOptionsGroup",
+            						"MSQuantifySaveAsGroup"),
+                				collapse = ", "),
+            SavePathName = propPath)   
 
 
+#####  Display Tab
+
+   guiCreate("Property",
+            Name = "MSQuantifyPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Object Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSQuantifyPrintHistory",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print History Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)            
+
+
+  guiCreate("Property",
+            Name = "MSQuantifyPrintOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Print Options",
+            PropertyList = paste(c(	"MSQuantifyPrintObject",
+            				 		"MSQuantifyPrintHistory"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+            
+            
+  guiCreate("Property",
+            Name = "MSQuantifyPlotResult",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Plot Result",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)            
+
+  guiCreate("Property",
+            Name = "MSQuantifyPlotXAxisVariable",
+            Type = "Normal",
+            DefaultValue = "mass",
+            ParentProperty = "",
+            DialogPrompt = "X-Axis Variable",
+            DialogControl = "List Box",
+            OptionList = "time, mass",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSQuantifyPlotSpectraSubset",
+            Type = "Normal",
+            DefaultValue = "1",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Subset",
+            DialogControl = "Combo Box",
+            OptionList = "1, <All>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)            
+ 
+  guiCreate("Property",
+            Name = "MSQuantifyPlotSpectraOffset",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Offset",
+            DialogControl = "Combo Box",
+            OptionList = "<Auto>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)           
+
+  guiCreate("Property",
+            Name = "MSQuantifyPlotOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Plot Options",
+            PropertyList = paste(c(	"MSQuantifyPlotResult",
+            						"MSQuantifyPlotXAxisVariable",
+            						"MSQuantifyPlotSpectraSubset", 
+            						"MSQuantifyPlotSpectraOffset"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+          
+  guiCreate("Property",
+            Name = "MSQuantifyImageResult",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Image Result",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+                                  
+  guiCreate("Property",
+            Name = "MSQuantifyImageXAxisVariable",
+            Type = "Normal",
+            DefaultValue = "mass",
+            ParentProperty = "",
+            DialogPrompt = "X-Axis Variable",
+            DialogControl = "List Box",
+            OptionList = "time, mass",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSQuantifyImageSpectraSubset",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Subset",
+            DialogControl = "Combo Box",
+            OptionList = "1, <All>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)            
+                                                    
+  guiCreate("Property",
+            Name = "MSQuantifyImageOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Image Options",
+            PropertyList = paste(c(	"MSQuantifyImageResult",
+            						"MSQuantifyImageXAxisVariable",
+            						"MSQuantifyImageSpectraSubset"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+  guiCreate("Property",
+            Name = "MSQuantifyDisplayTab",
+            Type = "Page", 
+            DialogPrompt = "Display",
+            PropertyList =paste(c(  "MSQuantifyPrintOptionsGroup",
+            						"MSQuantifyPlotOptionsGroup",
+            						"MSQuantifyImageOptionsGroup"),
+                				collapse = ", "),
+            SavePathName = propPath)           
+            
+
+#######################################
+####  FunctionInfo for msQuantify  ####
+#######################################  
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSQuantify",
+            Function = "menuMSQuantify",
+            DialogHeader = "Peak Quantification",
+            StatusString = "Peak quantification for an msSet object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSQuantifyMotherTab",
+            			"MSQuantifyDisplayTab"),
+            		   collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSQuantifyDataSet",
+                    	"#2=MSQuantifyFUN", 
+                    	"#3=MSQuantifyXNew",
+                    	"#4=MSQuantifySaveAs", 
+                    	"#5=MSQuantifyPrintObject",
+                    	"#6=MSQuantifyPrintHistory",
+                    	"#7=MSQuantifyPlotResult",
+            			"#8=MSQuantifyPlotXAxisVariable",
+            			"#9=MSQuantifyPlotSpectraSubset", 
+            			"#10=MSQuantifyPlotSpectraOffset",
+            			"#11=MSQuantifyImageResult",
+            			"#12=MSQuantifyImageXAxisVariable",
+            			"#13=MSQuantifyImageSpectraSubset"),                    	
+                      collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSQuantify",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)                      
+
+
+
+#########################
+####  Display msSet  ####
+#########################
+
+####  Data/Method Tab
+  guiCreate("Property",
+            Name = "MSDisplayMSSetDataSet",
+            Type = "Normal",
+            DefaultValue = "",
+            DialogPrompt = "Data Set:",
+            DialogControl = "List Box",
+            OptionList = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetDataSelectionGroup",
+            Type = "Group",
+            DialogPrompt = "Data Selection",
+            PropertyList = paste(c(	"MSDisplayMSSetDataSet"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetDoPlot",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Create Plot",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotAdd",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Add Plot to Page",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+                                               
+                                                           
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotVariable",
+            Type = "Normal",
+            DefaultValue = "msPrepare",
+            DialogPrompt = "Plot Variable:",
+            DialogControl = "List Box",
+            OptionList = "msPrepare, msDenoise, msNoise, msDetrend, msNormalize, msPeak, msAlign",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+         
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotXAxisVariable",
+            Type = "Normal",
+            DefaultValue = "mass",
+            ParentProperty = "",
+            DialogPrompt = "X-Axis Variable",
+            DialogControl = "List Box",
+            OptionList = "time, mass",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotSpectraSubset",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Subset",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "<All>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)            
+ 
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotSpectraOffset",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "Spectra Offset:",
+            DialogControl = "Combo Box",
+            OptionList = "<Auto>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)           
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotSpecGroup",
+            Type = "Group",
+            DialogPrompt = "Plot Specification",
+            PropertyList = paste(c(	"MSDisplayMSSetDoPlot",
+            						"MSDisplayMSSetPlotVariable",
+            						"MSDisplayMSSetPlotXAxisVariable",
+            						"MSDisplayMSSetPlotSpectraSubset", 
+            						"MSDisplayMSSetPlotSpectraOffset",
+            						"MSDisplayMSSetPlotAdd"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetDoImage",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Create Image",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageVariable",
+            Type = "Normal",
+            DefaultValue = "spectra",
+            DialogPrompt = "Image What?",
+            DialogControl = "List Box",
+            OptionList = "spectra, noise, noise.local, baseline, peak.list, peak.matrix",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = T,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageXAxisVariable",
+            Type = "Normal",
+            DefaultValue = "mass",
+            ParentProperty = "",
+            DialogPrompt = "X-Axis Variable",
+            DialogControl = "List Box",
+            OptionList = "time, mass",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageSpectraSubset",
+            Type = "Normal",
+            DefaultValue = "<All>",
+            ParentProperty = "",
+            DialogPrompt = "Subset:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "<All>",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)            
+ 
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageSpecGroup",
+            Type = "Group",
+            DialogPrompt = "Image Specification",
+            PropertyList = paste(c( "MSDisplayMSSetDoImage",
+            						"MSDisplayMSSetImageVariable",
+            						"MSDisplayMSSetImageXAxisVariable",
+            						"MSDisplayMSSetImageSpectraSubset",
+            						"MSDisplayMSSetImageAdd"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+
+
+                        
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPrintObject",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print Object Information",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPrintSummary",
+            Type = "Normal",
+            DefaultValue = T,
+            ParentProperty = "",
+            DialogPrompt = "Print History",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPrintOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Print Options",
+            PropertyList = paste(c(	"MSDisplayMSSetPrintObject",
+            						"MSDisplayMSSetPrintSummary"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)                                      
+            
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageAdd",
+            Type = "Normal",
+            DefaultValue = F,
+            ParentProperty = "",
+            DialogPrompt = "Add Image to Page",
+            DialogControl = "Check Box",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = F,
+            NoQuotes = T,
+            IsList = F,
+            Disable = F)  
+            
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotXlim",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "X Limits:",
+            DialogControl = "Combo Box",
+            OptionList = "<Auto>; 13000,17000",
+            OptionListDelimiter = ";",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)   
+
+  ## Command Line Symbol Styles
+  symbolStyleList <-
+    paste("Box, Empty",
+    	  "Circle, Empty",
+          "Triangle, Up, Empty",
+          "Plus",
+          "X",
+          "Diamond, Empty",
+          "Triangle, Dn, Empty",
+          "Box X",
+          "Plus X",
+          "Diamond +",
+          "Circle +",
+          "Tri. Up Down",
+          "Box +",
+          "Circle X",
+          "Tri. Up Box",
+          "Box, Solid",
+          "Circle, Solid",
+          "Triangle, Up, Solid",
+          "Diamond, Solid",
+          "Triangle, Dn, Solid",
+          "Tri. Dn Box",
+          "Cross",
+          "|",
+          "Diamond X",
+          sep = ";")
+
+## These points not supported by other devices
+#          "Ant",
+#          "Male",
+#          "Female",
+
+  ## Command Line Line Styles
+  lineStyleList <-
+    paste("Solid",
+          "Dots",
+          "Dot Dash",
+          "Long Dash",
+          "Dot Dot Dash",
+          "Alt Dash",
+          "Tiny Dash",
+          "Short Dash",
+          sep = ",")
+            
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotPCH",
+            Type = "Normal",
+            DefaultValue = "Circle, Empty",
+            ParentProperty = "",
+            DialogPrompt = "Plot Symbol:",
+            DialogControl = "Combo Box",
+            OptionList = symbolStyleList,
+            CopyFrom = "TXPROP_SymbolStyle",
+            OptionListDelimiter = ";",
+            HelpString = "", 
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+#bitmapPath = "D:/Research/packages_s/msProcess/swingui/guicreate/bitmaps"
+#colorPath = "./bitmaps"
+bitmapPath = system.file(package = "msProcess", "bitmaps")
+
+#  guiCreate("Property",
+#            Name = "MSDisplayMSSetPlotLTY",
+#            Type = "Normal",
+#            DefaultValue = "",
+#            ParentProperty = "",
+#            DialogPrompt = "Line Style:",
+#            DialogControl = "Multi-select Combo Box",
+#            OptionList = lineStyleList,
+#            CopyFrom = "TXPROP_LineStyle",
+#            HelpString = "",
+#            SavePathName = propPath,
+#            IsRequired = F,
+#            UseQuotes = T,
+#            NoQuotes = F,
+#            IsList = F,
+#            Disable = F)
+
+#lineStyleBitmaps = c(paste(bitmapPath, dirSeparator(), "Auto.bmp", sep = ""), paste(bitmapPath, paste("lty", seq(8), ".bmp", sep = ""), sep = dirSeparator()))
+lineStyleBitmaps = paste(bitmapPath, paste("lty", seq(8), ".bmp", sep = ""), sep = dirSeparator())
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotLTY",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "Line Style:",
+            DialogControl = "Picture Multi-select List Box",
+            OptionList = lineStyleBitmaps,
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+            
+#Colors = c("Auto", "Black", "Blue", "Green", "Red", "BlueViolet", "Chartreuse", "Coral", "Cyan",             
+Colors = c("Black", "Blue", "Green", "Red", "BlueViolet", "Chartreuse", "Coral", "Cyan", 
+		"DarkGoldenRod", "Brown", "CornflowerBlue", "Purple", "Chocolate", "DarkBlue", 
+		"DarkCyan", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "BurlyWood", 
+		"DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkSalmon", "DarkSeaGreen",
+		"DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "FireBrick", 
+		"ForestGreen", "Gold", "GoldenRod", "Gray", "GreenYellow", "HotPink", 
+		"IndianRed", "Khaki", "LawnGreen", "LightBlue", "LightCoral", "LightCyan", "LightGray", 
+		"LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", 
+		"LightSteelBlue", "LimeGreen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", 
+		"MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", 
+		"MediumTurquoise", "MediumVioletRed", "MidnightBlue", "Navy", "Orange", "OrangeRed", "Orchid", 
+		"PaleGoldenRod", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", 
+		"Plum", "PowderBlue", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", 
+		"SandyBrown", "SeaGreen", "Sienna", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", 
+		"SteelBlue", "Tan", "Thistle", "Tomato", "Turquoise", "Aquamarine")
+
+colorBitmaps = paste(bitmapPath, dirSeparator(), Colors, ".bmp", sep = "")
+		            
+#            OptionList = paste(colorBitmaps, collapse = ","),
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotCOL",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "Colors:",
+            DialogControl = "Picture Multi-select List Box",
+            OptionList = colorBitmaps,
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)           
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotLWD",
+            Type = "Normal",
+            DefaultValue = "1",
+            ParentProperty = "",
+            DialogPrompt = "&Line Widths:",
+            DialogControl = "Multi-select Combo Box",
+            OptionList = "1,2,3,4,5,6,7,8,9,10",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetPlotOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Plot Options",
+            PropertyList = paste(c(	"MSDisplayMSSetPlotXlim",
+            						"MSDisplayMSSetPlotPCH",
+            						"MSDisplayMSSetPlotLTY",
+            						"MSDisplayMSSetPlotCOL", 
+            						"MSDisplayMSSetPlotLWD"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageXlim",
+            Type = "Normal",
+            DefaultValue = "<Auto>",
+            ParentProperty = "",
+            DialogPrompt = "X Limits:",
+            DialogControl = "Combo Box",
+            OptionList = "<Auto>; 13000,17000",
+            OptionListDelimiter = ";",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)    
+ 
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageXAXS",
+            Type = "Normal",
+            DefaultValue = "internal",
+            ParentProperty = "",
+            DialogPrompt = "X-Axis Style:",
+            DialogControl = "List Box",
+            OptionList = "extended, internal, rational, standard",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageYAXS",
+            Type = "Normal",
+            DefaultValue = "internal",
+            ParentProperty = "",
+            DialogPrompt = "Y-Axis Style:",
+            DialogControl = "List Box",
+            OptionList = "extended, internal, rational, standard",
+            CopyFrom = "",
+            HelpString = "",
+            SavePathName = propPath,
+            IsRequired = F,
+            UseQuotes = T,
+            NoQuotes = F,
+            IsList = F,
+            Disable = F)
+
+
+            
+  guiCreate("Property",
+            Name = "MSDisplayMSSetImageOptionsGroup",
+            Type = "Group",
+            DialogPrompt = "Image Options",
+            PropertyList = paste(c("MSDisplayMSSetImageXlim",
+            						"MSDisplayMSSetImageXAXS",
+            						"MSDisplayMSSetImageYAXS"),
+            				 	 collapse = ", "), 
+            SavePathName = propPath)
+            
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetMainTab",
+            Type = "Page", 
+            DialogPrompt = "Data",
+            PropertyList =paste(c(  "MSDisplayMSSetDataSelectionGroup", 
+            						"MSDisplayMSSetPrintOptionsGroup",
+            						"MSDisplayMSSetPlotSpecGroup", 
+            						"MSDisplayMSSetImageSpecGroup"),
+                				collapse = ", "),
+            SavePathName = propPath)           
+
+
+  guiCreate("Property",
+            Name = "MSDisplayMSSetGraphicOptionsTab",
+            Type = "Page", 
+            DialogPrompt = "Graphic Options",
+            PropertyList =paste(c(  "MSDisplayMSSetPlotOptionsGroup",
+            						"MSDisplayMSSetImageOptionsGroup"),
+                				collapse = ", "),
+            SavePathName = propPath)           
+
+  currentSpaces <- createSpaces(currentSpaces, n = 1)
+  plotSpaces <- currentSpaces[["spaceNames"]]
+  
+  
+############################################
+####  FunctionInfo for menuMSDisplayMSSet  ####
+############################################  
+
+
+  guiCreate("FunctionInfo",
+            Name = "menuMSDisplayMSSet",
+            Function = "menuMSDisplayMSSet",
+            DialogHeader = "Display msSet Object",
+            StatusString = "Display an msSet object",
+            PropertyList =
+            	paste(c("SPropInvisibleReturnObject",
+            			"MSDisplayMSSetMainTab",
+            			"MSDisplayMSSetGraphicOptionsTab"),
+            		   collapse = ", "),
+            ArgumentList =
+            	paste(c("#0=SPropInvisibleReturnObject", 
+                    	"#1=MSDisplayMSSetDataSet",
+                    	"#2=MSDisplayMSSetPlotVariable", 
+                    	"#3=MSDisplayMSSetPlotXAxisVariable",
+                    	"#4=MSDisplayMSSetPlotSpectraSubset", 
+                    	"#5=MSDisplayMSSetPlotSpectraOffset",
+                    	"#6=MSDisplayMSSetImageVariable",
+            			"#7=MSDisplayMSSetImageXAxisVariable",
+            			"#8=MSDisplayMSSetImageSpectraSubset",
+                    	"#9=MSDisplayMSSetDoPlot",
+                    	"#10=MSDisplayMSSetDoImage",
+            			"#11=MSDisplayMSSetPrintObject",
+            			"#12=MSDisplayMSSetPrintSummary",
+                    	"#13=MSDisplayMSSetPlotXlim",
+                    	"#14=MSDisplayMSSetPlotPCH", 
+                    	"#15=MSDisplayMSSetPlotLTY",
+                    	"#16=MSDisplayMSSetPlotCOL",
+                    	"#17=MSDisplayMSSetPlotLWD",
+                    	"#18=MSDisplayMSSetPlotAdd",
+                    	"#19=MSDisplayMSSetImageXlim",
+            			"#20=MSDisplayMSSetImageXAXS",
+            			"#21=MSDisplayMSSetImageYAXS",
+            			"#22=MSDisplayMSSetImageAdd"),
+                      collapse = ", "),
+            ArgumentClassList = "",
+            PromptList = "",
+            DefaultValueList = "",
+            CallBackFunction = "backMSDisplayMSSet",
+            HelpCommand = "",
+            WriteArgNames = T,
+            Display = F,
+            SavePathName = infoPath)                      
+
+
+#            
 #  invisible()
 #  }

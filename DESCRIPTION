@@ -1,13 +1,13 @@
 Package: msProcess
 Type: Package
 Title: Protein Mass Spectra Processing
-Version: 1.0.3
-Date: 2008-05-29
+Version: 1.0.4
+Date: 2008-08-29
 Author: Lixin Gong, William Constantine, and Alex Chen
 Maintainer: Lixin Gong <lgong@insightful.com>
-Depends: R (>= 2.5.0), methods, graphics, RSQLite (>= 0.5-6), wmtsa, robust,
+Depends: R (>= 2.5.0), methods, graphics, RSQLite (>= 0.5-6), wmtsa, robust, 
   XML, stats
-DependsSplus: RSQLite (>= 0.5-6), wmtsa, robust, SPXML
+DependsSplus: RSQLite (>= 0.5-6), wmtsa, SPXML
 Description: This package provides tools for protein mass spectra processing 
   including data preparation, denoising, noise estimation, baseline correction, 
   intensity normalization, peak detection, peak alignment, peak quantification,
@@ -18,4 +18,4 @@ Description: This package provides tools for protein mass spectra processing
 License: GNU General Public License Version 2
 Copyright: 2007-2008 Insightful Corporation. All rights reserved.
 URL: http://www.insightful.com/services/research/proteome/default.asp
-Packaged: Mon Jun  2 08:49:28 2008; hornik
+Packaged: Wed Sep  3 09:47:19 2008; hornik

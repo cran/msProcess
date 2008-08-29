@@ -1,20 +1,29 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSPrepare.q#6 $
-## $DateTime: 2008/04/30 10:25:31 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSPrepare.q#8 $
+## $DateTime: 2008/08/28 16:00:53 $
 
 backMSPrepare = function(data){
 	initialmsg = cbIsInitDialogMessage(data)
 	rollbackmsg = cbIsRollbackMessage(data)
 	activeprop = cbGetActiveProp(data)
-	# set startup properties	
+	
+	# set startup properties
+	all.msList = objects(classes = "msList")
 	if(initialmsg || rollbackmsg){
-		data = cbSetOptionList(data, "MSPrepDataSet", paste(objects(classes = "msList"), collapse = ","))
+		if (length(all.msList)!=0){
+			data = cbSetOptionList(data, "MSPrepDataSet", paste(all.msList, collapse = ","))
+			data = cbSetCurrValue(data, "MSPrepDataSet", all.msList[1])
+			activeprop = "MSPrepDataSet"
+		}
 	}
 
 	if(activeprop == "MSPrepDataSet"){
 		if(exists(cbGetCurrValue(data, "MSPrepDataSet"))){
-			data = cbSetCurrValue(data, 
-							  	  "MSPrepSaveAs", 
-							  	  paste(cbGetCurrValue(data, "MSPrepDataSet"), ".prep", sep = ""))
+#			data = cbSetCurrValue(data, 
+#							  	  "MSPrepSaveAs", 
+#							  	  paste(cbGetCurrValue(data, "MSPrepDataSet"), ".prep", sep = ""))
+#			data = cbSetCurrValue(data,
+#								  "MSPrepMassMin",
+#								  max(sapply(get(cbGetCurrValue(data, "MSPrepDataSet")), function(x) min(x[,"mz"]))))
 		} else {
       		guiDisplayMessageBox(paste(cbGetCurrValue(data, "MSPrepDataSet"), 
       							 		"does not exist. Please enter another data set name."),
@@ -31,5 +40,6 @@ backMSPrepare = function(data){
       						button = c("Ok"),
 							icon = c("error"))		
 	}
-data
+
+	data
 }

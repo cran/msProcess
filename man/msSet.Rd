@@ -119,7 +119,7 @@ xaxis="mass", xlim=NULL, pch=1, lty=1:2, col=1:8, lwd=1, add=FALSE, ...)
 \item{process}{a character string specifying the process to be visualized.
 The options are \code{"msPrepare"}, \code{"msDenoise"},
 \code{"msNoise"}, \code{"msDetrend"},
-\code{"msIntensityNormalize"}, \code{"msPeak"},
+\code{"msNormalize"}, \code{"msPeak"},
 \code{"msAlign"}. Default: \code{"msPrepare"}.}
 
 \item{subset}{a numeric vector or \code{NULL} indicating the index of the

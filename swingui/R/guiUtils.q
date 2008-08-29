@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/guiUtils.q#2 $
-## $DateTime: 2008/05/07 17:39:53 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/guiUtils.q#7 $
+## $DateTime: 2008/08/27 09:46:32 $
 
 ######################
 ####  plot.msSet  ####
@@ -71,3 +71,54 @@ imageFromGUI = function(x,
 						
 	invisible()							
 }
+
+#############################
+####  parseVectorString  ####
+#############################
+##
+##  this function converts a string representing a vector of values into
+##    a form recognizable by S-PLUS
+##  example acceptable strings are 
+##    "2 3 4"
+##    "2, 3, 4"
+##  also S-PLUS expressions are acceptable
+##    "c(2, 3, 4)"
+##    2:4
+##
+parseVectorString = function(x, checkSpaces = T){
+	if(is.all.white(x)){
+		guiDisplayMessageBox("Must enter a set of valid values.",
+      						button = c("Ok"),
+							icon = c("error"))
+	}
+	
+	if(length(grep(",", x))){
+		if(length(grep("c\\(", x))) x = eval(parse(text = x))
+		else if( length(grep("[a-zA-Z]", x)) ){
+			ll = unlist(unpaste(x, sep = ","))
+			ll = ll[ll != ""]	
+			x = eval(parse(text = paste("c(", paste(paste("'",ll, "'", sep = ""), collapse = ","), ")")))		
+		}
+		else x = eval(parse(text = paste("c(", x, ")")))
+					
+	} else  { #if(length(grep(" ", x)))
+		if( !checkSpaces ) return(x)
+		if( length(grep("[a-zA-Z]", x)) ){
+			ll = unlist(unpaste(x, sep = " "))
+			ll = ll[ll != ""]	
+			x = eval(parse(text = paste("c(", paste(paste("'",ll, "'", sep = ""), collapse = ","), ")")))		
+		} else {	
+	
+			ll = unlist(unpaste(x, sep = " "))
+			ll = ll[ll != ""]
+			x = eval(parse(text = paste("c(", paste(ll, collapse = ","), ")")))
+		}
+	}
+	x
+}
+
+getMethodProps = function(pattern){
+	item = guiGetObjectNames("Property")
+	item[grep(pattern, item)]
+}
+										 						 

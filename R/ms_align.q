@@ -30,10 +30,22 @@
     }
   }
 
+	# check the number of spectra with peak detected
+  n.peak.list <- length(peak.list)
+  nopeak <- (sapply(peak.list, NROW) == 0)
+  n.nopeak <- sum(nopeak)
+  
+  if (n.nopeak==n.peak.list) {
+  	stop("no peak to align")
+  } else if (n.nopeak != 0) {
+  	peak.list <- peak.list[!nopeak]
+  }
+
   # extract locations of peaks with large snr from the peak.list
   peak.all <- unlist(lapply(peak.list,
     function(x, snr.thresh) x[x$snr>=snr.thresh, "tick.loc"],
       snr.thresh=snr.thresh))
+  if (length(peak.all)==0) stop("no strong peak to align, reduce snr.thresh")
   peak.count  <- table(peak.all)
   peak.unique <- as.integer(names(peak.count))
 	

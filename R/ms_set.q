@@ -10,6 +10,7 @@
 ##  print.msList
 ##  print.summary.msList
 ##  summary.msList
+##  merge.msList
 ##
 ## Class: msSet
 ## Constructor function: msSet
@@ -130,7 +131,7 @@ if (!is.R()){
 ###
 # summary.msList
 ###
-#setOldClass(c("summary.msList", "data.frame"))
+setOldClass(c("summary.msList", "data.frame"))
 "summary.msList" <- function(object, ...)
 {
   n.mz   <- sapply(object, numRows)
@@ -143,6 +144,29 @@ if (!is.R()){
   oldClass(value) <- c("summary.msList", "data.frame")
   value
 }
+
+###
+# merge.msList
+###
+"merge.msList" = function(...){
+
+	## not all msList objects	
+	ll = list(...)
+	classes = sapply(ll, class)
+	if(any(classes != "msList")) stop("all arguments must be of class msList")
+	
+	## length = 1 case		
+	if(length(ll) == 1)
+		return(ll[[1]])
+
+	## length > 1 case
+	types = unlist(sapply(ll, function(x)as.character(attr(x, "type"))))
+	result = c(...)
+	attr(result, "type") = factor(types)
+	oldClass(result) = "msList"
+	result
+}
+
 
 ################################################
 ## Class: msSet
@@ -533,6 +557,7 @@ if (is.R()){
   }
 
   if (is.null(subset)) subset <- 1:numCols(x$intensity)
+  col <- rep(col, length.out=length(subset))
 
   intensity <- x$intensity[, subset, drop=FALSE]
   ymatrix   <- intensity[tick.range, ]
@@ -608,6 +633,8 @@ if (is.R()){
       peak.loc   <- lapply(peak.list,
           function(x, tick.range)
           {
+          	# return NULL if no peak detected 
+            if (NROW(x)==0) return(NULL)
             peak.loc <- x[, "tick.loc"]
             peak.loc[(peak.loc >= tick.range[1]) &
               (peak.loc <= tick.range[length(tick.range)])]

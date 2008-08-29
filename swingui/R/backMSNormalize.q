@@ -1,15 +1,24 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSNormalize.q#1 $
-## $DateTime: 2008/05/01 15:25:42 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSNormalize.q#3 $
+## $DateTime: 2008/08/28 16:00:53 $
 
 backMSNormalize = function(data){
 	
-	assign("propData", data, where = 1)
 	initialmsg = cbIsInitDialogMessage(data)
 	rollbackmsg = cbIsRollbackMessage(data)
 	activeprop = cbGetActiveProp(data)
 
+	plotProps = c("MSNormalizePlotXAxisVariable",  "MSNormalizePlotSpectraSubset",  "MSNormalizePlotSpectraOffset")
+
+	imageProps = c("MSNormalizeImageXAxisVariable", "MSNormalizeImageSpectraSubset" )
+
+	displayProps = c("MSNormalizePrintObject", "MSNormalizePrintHistory", "MSNormalizePlotResult", "MSNormalizeImageResult")
+
+
 	if(initialmsg || rollbackmsg){
-		data = cbSetOptionList(data, "MSNormalizeDataSet", paste(objects(classes = "msSet"), collapse = ","))	
+		data = cbSetOptionList(data, "MSNormalizeDataSet", paste(msObjects("msNormalize"), collapse = ","))	
+		for(i in imageProps){
+				data = cbSetEnableFlag(data, i, FALSE)
+		}
 	}
 
 	## actions based on selecting the data set
@@ -27,5 +36,19 @@ backMSNormalize = function(data){
 		}
 	}
 
-  data	
+	if(activeprop == "MSNormalizePlotResult"){
+		plotChecked = as.logical(cbGetCurrValue(data, "MSNormalizePlotResult"))
+		for(i in plotProps){
+				data = cbSetEnableFlag(data, i, plotChecked)
+		}
+	}
+
+	if(activeprop == "MSNormalizeImageResult"){
+		imageChecked = as.logical(cbGetCurrValue(data, "MSNormalizeImageResult"))
+		for(i in imageProps){
+				data = cbSetEnableFlag(data, i, imageChecked)
+		}
+	}
+	
+	data
 }

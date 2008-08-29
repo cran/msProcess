@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSNoise.q#7 $
-## $DateTime: 2008/05/13 14:48:23 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSNoise.q#9 $
+## $DateTime: 2008/08/28 16:00:53 $
 
 backMSNoise = function(data){
 
@@ -44,10 +44,13 @@ backMSNoise = function(data){
 				    "MSNoiseSplineDFOffset", "MSNoiseSplinePenalty")
 				    
 	supsmuProps = c("MSNoiseSupsmuSpan", "MSNoiseSupsmuBass", "MSNoiseSupsmuPeriodic")
+
+	plotProps = c("MSNoisePlotXAxisVariable", "MSNoisePlotSpectraSubset", "MSNoisePlotSpectraOffset")
+					 
+	imageProps = c("MSNoiseImageXAxisVariable", "MSNoiseImageSpectraSubset")					 
 	
 	displayProps = c("MSNoisePrintObject", "MSNoisePrintHistory", "MSNoisePlotResult", 
-					 "MSNoisePlotXAxisVariable", "MSNoisePlotSpectraSubset", "MSNoisePlotSpectraOffset",
-					 "MSNoiseImageResult", "MSNoiseImageXAxisVariable", "MSNoiseImageSpectraSubset")
+					 "MSNoiseImageResult")
 	
 	allMethodProps = c(motherProps, ksmoothProps, loessProps, meanProps, splineProps, supsmuProps, displayProps)
 					
@@ -61,7 +64,7 @@ backMSNoise = function(data){
 		}
 	}
 	if(initialmsg || rollbackmsg){
-		data = cbSetOptionList(data, "MSNoiseDataSet", paste(objects(classes = "msSet"), collapse = ","))	
+		data = cbSetOptionList(data, "MSNoiseDataSet", paste(msObjects("msNoise"), collapse = ","))	
 	}
 
 	## actions based on selecting the data set
@@ -74,7 +77,7 @@ backMSNoise = function(data){
 			for(i in c(motherProps, displayProps)){
 				data = cbSetEnableFlag(data, i, T)
 			}
-			for(i in splineProps){
+			for(i in meanProps){
 				data = cbSetEnableFlag(data, i, T)
 			}		
 		} else {
@@ -148,6 +151,20 @@ backMSNoise = function(data){
       						button = c("Ok"),
 							icon = c("error"))		
 	}						
-  data	
-	
+
+	if(activeprop == "MSNoisePlotResult"){
+		plotChecked = as.logical(cbGetCurrValue(data, "MSNoisePlotResult"))
+		for(i in plotProps){
+				data = cbSetEnableFlag(data, i, plotChecked)
+		}
+	}
+
+	if(activeprop == "MSNoiseImageResult"){
+		imageChecked = as.logical(cbGetCurrValue(data, "MSNoiseImageResult"))
+		for(i in imageProps){
+				data = cbSetEnableFlag(data, i, imageChecked)
+		}
+	}
+
+	data
 }

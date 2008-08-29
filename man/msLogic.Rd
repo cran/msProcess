@@ -26,7 +26,7 @@ the \code{FUN} argument of \code{process}.
 \code{NULL} is returned if none is applicable.
 }
 \seealso{
-\code{\code{\link{msSet}}.}
+\code{\link{msSet}}.
 }
 
 \examples{

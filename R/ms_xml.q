@@ -123,5 +123,5 @@
 
   names(zz) <- c("mz", ifelse(tof,"tof","intensity"))
 
-  zz
+  as.data.frame(zz)
 }

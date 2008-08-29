@@ -100,6 +100,16 @@
       z <- apply(x, MARGIN=MARGIN, FUN=FUN, ..., type=type)
   }
 
+	# check the number of spectra with peak detected
+  n.z <- length(z)
+  n.nopeak <- sum(sapply(z, NROW) == 0)
+  
+  if (n.nopeak==n.z) {
+  	stop("no peak detected on all spectra")
+  } else if (n.nopeak != 0) {
+  	warning(sprintf("no peak detected on %d out of %d spectra", n.nopeak, n.z))
+  }
+
 	x <- ifelse1(use.mean, msSet(x, peak.class=z[[1]]),
 	  msSet(x, peak.list=z))
 
@@ -193,7 +203,7 @@
 ###
 
 "msPeakMRD" <- function(x, y, n.level=floor(log2(length(y))),
-  concavity.threshold=0, snr.thresh=2, process="msPeakMRD")
+  concavity.threshold=0, snr.thresh=0, process="msPeakMRD")
 {
 	# check input arguments
 	checkVectorType(y,"numeric")
@@ -337,6 +347,7 @@
 
   # find the tick.left and tick.right bounds of each peak
   # TODO: is there any way to get rid of the for loop?
+  if ((npeak=length(tick.loc))==0) return(data.frame())
   tick.left <- tick.right <- rep(1, length(tick.loc))
 
   for (i in 1:length(tick.loc)) {

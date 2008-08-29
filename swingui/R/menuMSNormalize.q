@@ -1,5 +1,5 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSNormalize.q#4 $
-## $DateTime: 2008/05/13 13:33:16 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSNormalize.q#5 $
+## $DateTime: 2008/08/27 10:44:32 $
 
 menuMSNormalize = function(	x, 									#1 
 						 	FUN = "TIC", 						#2 
@@ -8,11 +8,11 @@ menuMSNormalize = function(	x, 									#1
 						 	printObj = T, 						#5 
 						 	printHistory = T,					#6 
 						 	plotResult = T,						#7                      
-						 	plot.xaxis.variable = "time",		#8
+						 	plot.xaxis.variable = "mass",		#8
 						 	plot.spectra.subset = 1,			#9 display tab
 						 	plot.spectra.offset = NULL, 		#10 display tab
 						 	imageResult = T,					#11 display tab
-						 	image.xaxis.variable = "time",		#12 display tab					 
+						 	image.xaxis.variable = "mass",		#12 display tab					 
 						 	image.spectra.subset = NULL			#13 display tab
 						 	){
 

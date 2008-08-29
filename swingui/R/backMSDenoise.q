@@ -1,9 +1,8 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDenoise.q#12 $
-## $DateTime: 2008/05/13 14:18:36 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDenoise.q#15 $
+## $DateTime: 2008/08/28 16:00:53 $
 
 backMSDenoise = function(data){
 	
-	assign("propData", data, where = 1)
 	initialmsg = cbIsInitDialogMessage(data)
 	rollbackmsg = cbIsRollbackMessage(data)
 	activeprop = cbGetActiveProp(data)
@@ -31,9 +30,9 @@ backMSDenoise = function(data){
 	waveletProps = c("MSDenoiseWaveletWavelet", "MSDenoiseWaveletXForm", "MSDenoiseWaveletNLevels", 
 					 "MSDenoiseWaveletReflect", "MSDenoiseWaveletShrinkFun", "MSDenoiseWaveletThreshFun",  
 					 "MSDenoiseWaveletThreshScale", "MSDenoiseWaveletNoiseVar", "MSDenoiseWaveletAssignAttr") 
-	displayProps = c("MSDenoisePrintObject", "MSDenoisePrintHistory", "MSDenoisePlotResult", "MSDenoisePlotXAxisVariable",
-            		 "MSDenoisePlotSpectraSubset", "MSDenoisePlotSpectraOffset", "MSDenoiseImageResult", 
-            		 "MSDenoiseImageXAxisVariable", "MSDenoiseImageSpectraSubset")
+	plotProps = c("MSDenoisePlotXAxisVariable", "MSDenoisePlotSpectraSubset", "MSDenoisePlotSpectraOffset")
+	imageProps = c("MSDenoiseImageXAxisVariable", "MSDenoiseImageSpectraSubset")
+	displayProps = c("MSDenoisePrintObject", "MSDenoisePrintHistory", "MSDenoisePlotResult", "MSDenoiseImageResult")
 	allMethodProps = c(motherProps, smoothProps, mrdProps, waveletProps, displayProps)
 	
 	if(initialmsg){	
@@ -42,7 +41,7 @@ backMSDenoise = function(data){
 		}
 	}
 	if(initialmsg || rollbackmsg){
-		data = cbSetOptionList(data, "MSDenoiseDataSet", paste(objects(classes = "msSet"), collapse = ", "))
+		data = cbSetOptionList(data, "MSDenoiseDataSet", paste(msObjects("msDenoise"), collapse = ", "))
 	}
 	## actions based on selecting the data set
 	if(activeprop == "MSDenoiseDataSet"){
@@ -66,19 +65,6 @@ backMSDenoise = function(data){
 		data = cbSetCurrValue(data, "MSDenoiseWaveletNLevels", 
 							 floor(logb(numRows(get(cbGetCurrValue(data, "MSDenoiseDataSet"))[["intensity"]]), 2)))
 	}
-
-	## actions based on selecting the data column
-#	if(activeprop == "MSDenoiseDataType"){
-#			for(i in c(motherProps, displayProps)){
-#				data = cbSetEnableFlag(data, i, T)
-#			}
-#			for(i in waveletProps){
-#				data = cbSetEnableFlag(data, i, T)
-#			}
-#			data = cbSetCurrValue(data, "MSDenoiseWaveletNLevels", 
-#								  floor(logb(numRows(get(cbGetCurrValue(data, "MSDenoiseDataSet"))[[
-#								  								cbGetCurrValue(data, "MSDenoiseDataType")]]), 2)))
-#	}
 
 	## actions based on selecting the method
 	if(activeprop == "MSDenoiseFUN"){
@@ -122,8 +108,24 @@ backMSDenoise = function(data){
 			data = cbSetCurrValue(data, "MSDenoiseWaveletThreshFun", "universal")
 		} else {
 			data = cbSetOptionList(data, "MSDenoiseWaveletThreshFun", 
-								   paste(c("adaptive", "minimax", "universal"), collapse = ", "))			
+								   paste(c("adaptive", "minimax", "universal"), collapse = ", "))
+			data = cbSetCurrValue(data, "MSDenoiseWaveletThreshFun", "universal")			
 		}
 	}
-  data
+
+	if(activeprop == "MSDenoisePlotResult"){
+		plotChecked = as.logical(cbGetCurrValue(data, "MSDenoisePlotResult"))
+		for(i in plotProps){
+				data = cbSetEnableFlag(data, i, plotChecked)
+		}
+	}
+
+	if(activeprop == "MSDenoiseImageResult"){
+		imageChecked = as.logical(cbGetCurrValue(data, "MSDenoiseImageResult"))
+		for(i in imageProps){
+				data = cbSetEnableFlag(data, i, imageChecked)
+		}
+	}
+
+	data
 }

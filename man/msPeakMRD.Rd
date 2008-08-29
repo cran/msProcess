@@ -12,7 +12,7 @@
 \title{Peak Detection via Multiresolution Decomposition}
 \concept{peak detection}
 \usage{msPeakMRD(x, y, n.level=floor(log2(length(y))),
-    concavity.threshold=0, snr.thresh=2, process="msPeakMRD")}
+    concavity.threshold=0, snr.thresh=0, process="msPeakMRD")}
 \description{A multiresolution decomposition (MRD) of the input time
 is formed using the maximal overlap discrete wavelet transform (MODWT).
 The sum of the MRD details (\eqn{D}) over the user-specified decomposition level(s)
@@ -51,7 +51,7 @@ Default: \code{"msPeakMRD"}.}
 
 \item{snr.thresh}{A numeric value representing the signal intensity threshold.
 Only the local maxima whose signal intensity is above this value
-will be recorded as peaks. Default: 2.}
+will be recorded as peaks. Default: 0.}
 }
 
 \value{

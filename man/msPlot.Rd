@@ -29,7 +29,7 @@ matrix in the display, creating a waterfall-like plot. There
 are restrictions, however, in that the number of columns of
 the \code{matlines} and \code{matpoints} matrices must be the same if supplied.
 Also, currently a mix of \code{matlines}-\code{matpoints} with \code{lines}-\code{points}
-is not aupported.}
+is not supported.}
 
 \arguments{
 

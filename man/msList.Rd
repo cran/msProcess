@@ -5,14 +5,17 @@
 %%  documentation (such as corresponding LaTeX, SGML and HTML documentation) 
 %%  should be regenerated using the mid.pl Perl script. 
 
-%% R documentation for the msList, msList-class, [.msList, print.msList, summary.msList, print.summary.msList, plot.msList functions
+%% R documentation for the msList, msList-class, [.msList, merge.msList, 
+%% print.msList, summary.msList, print.summary.msList, plot.msList functions
 
 \name{msList}
 \alias{msList}
 \alias{msList-class}
 \alias{[.msList}
+\alias{merge.msList}
 \alias{print.msList}
 \alias{summary.msList}
+\alias{summary.msList-class}
 \alias{print.summary.msList}
 \alias{plot.msList}
 \docType{methods}
@@ -39,6 +42,12 @@ Usage: x[i]
 \item{x}{an \code{msList} object.}
 
 \item{i}{a subscript expression used to identify the spectra to extract or replace.}}}
+
+\item{merge}{merges multiple \code{msList} objects.
+
+Usage: merge(...)
+\describe{
+\item{...}{\code{msList} objects.}}}
 
 \item{plot}{plot a single spectrum from an \code{msList} object.
 

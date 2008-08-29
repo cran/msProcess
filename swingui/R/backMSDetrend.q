@@ -1,9 +1,8 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDetrend.q#6 $
-## $DateTime: 2008/05/13 15:59:04 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/backMSDetrend.q#9 $
+## $DateTime: 2008/08/28 16:00:53 $
 
 backMSDetrend = function(data){
 	
-	assign("propData", data, where = 1)
 	initialmsg = cbIsInitDialogMessage(data)
 	rollbackmsg = cbIsRollbackMessage(data)
 	activeprop = cbGetActiveProp(data)
@@ -41,9 +40,11 @@ backMSDetrend = function(data){
 	 				
 	supsmuProps = c("MSDetrendSupsmuSpan", "MSDetrendSupsmuBass", "MSDetrendSupsmuPeriodic")   
 
-	displayProps = c("MSDetrendPrintObject", "MSDetrendPrintHistory", "MSDetrendPlotResult",        
-					 "MSDetrendPlotXAxisVariable",  "MSDetrendPlotSpectraSubset",  "MSDetrendPlotSpectraOffset", 
-					 "MSDetrendImageResult", "MSDetrendImageXAxisVariable", "MSDetrendImageSpectraSubset" )
+	plotProps = c("MSDetrendPlotXAxisVariable",  "MSDetrendPlotSpectraSubset",  "MSDetrendPlotSpectraOffset")
+
+	imageProps = c("MSDetrendImageXAxisVariable", "MSDetrendImageSpectraSubset" )
+
+	displayProps = c("MSDetrendPrintObject", "MSDetrendPrintHistory", "MSDetrendPlotResult", "MSDetrendImageResult")
 					 
 	allMethodProps = c(motherProps, approxProps, loessProps, mrdProps, splineProps, supsmuProps, displayProps)
 	
@@ -55,12 +56,11 @@ backMSDetrend = function(data){
 		for(i in allMethodProps){
 					data = cbSetEnableFlag(data, i, F)
 		}
-		data = cbSetOptionList(data, "MSDetrendDataSet", paste(objects(classes = "msSet"), collapse = ","))	
 	}	
 	
-#	if(initialmsg || rollbackmsg){
-#		data = cbSetOptionList(data, "MSDetrendDataSet", paste(objects(classes = "msSet"), collapse = ","))	
-#	}
+	if(initialmsg || rollbackmsg){
+		data = cbSetOptionList(data, "MSDetrendDataSet", paste(msObjects("msDetrend"), collapse = ","))	
+	}
 
 	## actions based on selecting the data set
 	if(activeprop == "MSDetrendDataSet"){
@@ -68,13 +68,12 @@ backMSDetrend = function(data){
 			data = cbSetCurrValue(data, 
 							  "MSDetrendSaveAs", 
 							  paste(cbGetCurrValue(data, "MSDetrendDataSet"), ".base", sep = ""))
-#			data = cbSetOptionList(data, "MSDetrendDataType", paste(names(get(cbGetCurrValue(data, "MSDetrendDataSet"))), collapse = ","))
 			for(i in c(motherProps, displayProps)){
 				data = cbSetEnableFlag(data, i, T)
 			}
-			for(i in loessProps){
-				data = cbSetEnableFlag(data, i, T)
-			}
+#			for(i in loessProps){
+#				data = cbSetEnableFlag(data, i, T)
+#			}
 			
 		} else {
       		guiDisplayMessageBox(paste(cbGetCurrValue(data, "MSDetrendDataSet"), 
@@ -83,17 +82,6 @@ backMSDetrend = function(data){
 								icon = c("error"))				
 		}
 	}
-
-#	## actions based on selecting the data column
-#	if(activeprop == "MSDetrendDataType"){
-#			for(i in c(motherProps, displayProps)){
-#				data = cbSetEnableFlag(data, i, T)
-#			}
-#			for(i in loessProps){
-#				data = cbSetEnableFlag(data, i, T)
-#			}
-#	}
-
 	
 	## actions based on selecting the method	
 	if(activeprop == "MSDetrendFUN"){
@@ -113,6 +101,11 @@ backMSDetrend = function(data){
 					data = cbSetEnableFlag(data, i, T)
 				}
 				for(i in c(approxProps, mrdProps, splineProps, supsmuProps)){
+					data = cbSetEnableFlag(data, i, F)
+				}
+			},
+			"monotone" = {
+				for(i in c(approxProps, loessProps, mrdProps, splineProps, supsmuProps)){
 					data = cbSetEnableFlag(data, i, F)
 				}
 			},
@@ -161,7 +154,19 @@ backMSDetrend = function(data){
 			}
 	}
 
+	if(activeprop == "MSDetrendPlotResult"){
+		plotChecked = as.logical(cbGetCurrValue(data, "MSDetrendPlotResult"))
+		for(i in plotProps){
+				data = cbSetEnableFlag(data, i, plotChecked)
+		}
+	}
 
-						
-  data	
+	if(activeprop == "MSDetrendImageResult"){
+		imageChecked = as.logical(cbGetCurrValue(data, "MSDetrendImageResult"))
+		for(i in imageProps){
+				data = cbSetEnableFlag(data, i, imageChecked)
+		}
+	}
+		
+	data
 }

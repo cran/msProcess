@@ -1,11 +1,11 @@
-## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSNoise.q#7 $
-## $DateTime: 2008/05/13 13:32:23 $
+## $Id: //depot/Research/msProcess/pkg/msProcess/swingui/R/menuMSNoise.q#9 $
+## $DateTime: 2008/08/27 10:44:32 $
 
 menuMSNoise = function(x, 							#1 
 						 FUN = "spline", 			#3 
-						 pre = "abs",				#4	
+						 pre = abs,					#4	
 						 event = "Local Noise Estimation",	#5
-						 detach.noise = T, 			#6
+						 detach.noise = F, 			#6
 						 ksmooth.kernel = "box",	#7
 						 ksmooth.bandwidth = 0.5,	#8
 						 loess.family = "symmetric",#9
@@ -25,11 +25,11 @@ menuMSNoise = function(x, 							#1
 						 printObj = T, 				#23
 						 printHistory = T,			#24 
 						 plotResult = T, 				#25 display tab
-						 plot.xaxis.variable = "time",	#26 display tab
+						 plot.xaxis.variable = "mass",	#26 display tab
 						 plot.spectra.subset = 1,		#27 display tab
 						 plot.spectra.offset = NULL, 	#28 display tab
 						 imageResult = T,				#29 display tab
-						 image.xaxis.variable = "time",	#30 display tab					 
+						 image.xaxis.variable = "mass",	#30 display tab					 
 						 image.spectra.subset = NULL	#31 display tab
 						 ){
 						 	

@@ -68,8 +68,8 @@
   if (is.character(FUN) && FUN == "msSmoothMRD"){
   
     # get list of all args passed into child function
-	  p <- mergeList(formals(msSmoothMRD), mergeList(c(formals(msDetrend),list(...)),
-	    as.list(match.call())[-1]))
+	  p <- mergeList(formals(msSmoothMRD), mergeList(as.list(match.call())[-1],
+	  	c(formals(msDetrend),list(...))))
 
     x <- msSet(x, mrd=p[c("wavelet","levels","xform","reflect","keep.smooth","keep.details")])
   }

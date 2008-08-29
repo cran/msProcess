@@ -61,10 +61,11 @@
   else stop("Path(s) should be either all directory paths or all file paths.")
 
   if (!all(file.exists(file)))
-    stop("Path(s) must be of type character")
+    stop("Files do not exist")
 
   # initialize variables
   n.file    <- length(file)
+  if (n.file==0) stop("no file selected")
   ms        <- vector(mode="list", length=n.file)
   names(ms) <- if (is.R()) basename(file) else base.path.name(file)
 
@@ -95,10 +96,10 @@
   # sanity checks
   for (i in 1:n.file){
     if (any(duplicated(ms[[i]][, "mz"])))
-      warning("The mz values are not distinct for spectrum:", names(ms)[i])
+      warning("Some mz values are not distinct for spectrum:", names(ms)[i])
 
     if (any(ms[[i]][, "mz"] < 0))
-      warning("The mz values are not positive for spectrum:", names(ms)[i])
+      warning("Some mz values are not positive for spectrum:", names(ms)[i])
   }
 
   if (n.file > 1){
