@@ -26,7 +26,7 @@ See the specific underlying function for details.}
 \item{FUN}{Either an object of class \code{"character"}
 or of class \code{"function"}.
 
-\textbf{character:} A character string denoting the
+character: A character string denoting the
 method to use in smoothing the data to estimate the baseline.
 Supported choices are
 \describe{
@@ -51,7 +51,7 @@ relevant to baseline trends.}}
 
 Default: \code{"loess"}.
 
-\textbf{function:} A user-defined function with an argument list
+function: A user-defined function with an argument list
 of the form \code{(x, ...)} where \code{x} is a required argument
 corresponding to a numeric vector (typically these values
 will be the noise estimates of a mass spectrum).

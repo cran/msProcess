@@ -62,7 +62,7 @@ Default: \code{100}.}
 \item{holder}{a logical value. If TRUE, the holder exponents corresponding to the peaks are also calculated.}
 
 \item{noise.fun}{A character string defining the function to apply to the local noise estimates in order to sumarize
-and quantify the local noise level into a scalar value. See the \textbf{DETAILS} section for more information. Supported values
+and quantify the local noise level into a scalar value. See the DETAILS section for more information. Supported values
 are
 \describe{
 \item{"quantile"}{quantile(x, probs=0.95)}
@@ -121,7 +121,7 @@ Since \code{noise.local} is \code{NULL}, \code{"snr"} is the same as (\code{"int
 \references{
 Pan Du, Warren A. Kibbe, and Simon M. Lin,
 ``Improved peak detection in mass spectrum by incorporating continuous wavelet transform-based pattern matching",
-\emph{Bioinformatics}, \textbf{22}, 2059--2065 (2006).
+\emph{Bioinformatics}, 22, 2059--2065 (2006).
 
 D. B. Percival and A. T. Walden, \emph{Wavelet Methods for
 Time Series Analysis}, Cambridge University Press, 2000.

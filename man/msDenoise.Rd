@@ -25,7 +25,7 @@ See the help documentation of the specified FUN for details.}
 \item{FUN}{Either an object of class \code{"character"}
 or of class \code{"function"}.
 
-\textbf{character:} A character string denoting the
+character: A character string denoting the
 method to use in denoising the data.
 Supported choices are \code{"wavelet"} for wavelet shrinkage,
 \code{"mrd"} for partial summation of a wavelet-based
@@ -33,7 +33,7 @@ multiresolution decomposition,
 and \code{"smooth"} for robust running medians.
 Default: \code{"wavelet"}.
 
-\textbf{function:} A user-defined function with an argument list
+function: A user-defined function with an argument list
 of the form \code{(x, ...)} where \code{x} is a required argument
 corresponding to a numeric vector (typically these values
 will be the intensity values of a mass spectrum).

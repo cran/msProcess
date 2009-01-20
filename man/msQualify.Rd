@@ -73,7 +73,7 @@ Coombes KR, Fritsche HA Jr., Clarke C, Chen JN, Baggerly KA, Morris JS,
 Xiao LC, Hung MC, and Kuerer HM,
 ``Quality control and peak finding for proteomics data collected from
 nipple aspirate fluid by surface-enhanced laser desorption and ionization,"
-\emph{Clinical Chemistry}, \textbf{49}(10), pp. 1615--23, 2003.
+\emph{Clinical Chemistry}, 49(10), pp. 1615--23, 2003.
 }
 
 \seealso{
@@ -88,7 +88,7 @@ nv <- 35
 my.mean <- 10
 my.sd <- rnorm(nv)
 my.sd <- my.sd - min(my.sd) + 1
-rsam <- rmvnorm(n=nrs, d=nv, mean=rep(my.mean, nv),
+rsam <- splus2R::rmvnorm(n=nrs, d=nv, mean=rep(my.mean, nv),
     cov=diag(nv), sd=my.sd)
 
 ## run msQualify 
@@ -97,7 +97,7 @@ pca <- msQualify(rsam, FUN="princompRob", estim="auto")
 ## create multiple reference samples with multiple 
 ## peaks from the same distribution 
 nts <- 72
-tsam <- rmvnorm(n=nts, d=nv, mean=rep(my.mean, nv),
+tsam <- splus2R::rmvnorm(n=nts, d=nv, mean=rep(my.mean, nv),
     cov=diag(nv), sd=my.sd)
 
 ## predict the quality of the test samples 

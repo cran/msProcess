@@ -73,7 +73,7 @@ use in calculating the waveshrink thresholds.
 vector of values containing \code{n.levels}
 thresholds (one threshold per decomposition level).}}
 
-\textbf{Note:} if \code{xform == "modwt"}, then only the \code{"universal"}
+Note: if \code{xform == "modwt"}, then only the \code{"universal"}
 threshold function is (currently) supported.
 Default: \code{"universal"}.}
 
@@ -184,7 +184,7 @@ The supported threshold functions are
 \item{universal}{The universal threshold function is dependent on the type of wavelet
 transform used to decompose the time series.
 
-\textbf{DWT transform:}
+DWT transform:
 \eqn{\delta = \sqrt{2\sigma^2_\varepsilon \log(N)}}{delta=sqrt(2*var{noise}*log(N))}
 where \eqn{\sigma^2_\varepsilon}{var{noise}} is the noise variance and
 \eqn{N} is the number of samples in the time series.
@@ -199,7 +199,7 @@ where the \eqn{\mathbf{W}_{1,t}}{W(1,t)} are the set of level 1 DWT wavelet coef
 The MAD estimate is normalized by 0.6745 to ensure to return the
 proper result if the input series were solely comprised of Gaussian white noise.
 
-\textbf{MODWT transform:}
+MODWT transform:
 \eqn{\delta_j = \sqrt{2\sigma^2_\varepsilon \log(N)/2^j}}{delta(j)=sqrt(2*var{noise}*log(N)/2^j)}
 where \eqn{\sigma^2_\varepsilon}{var{noise}} is the noise variance,
 \eqn{N} is the number of samples in the time series, and \eqn{j} is the

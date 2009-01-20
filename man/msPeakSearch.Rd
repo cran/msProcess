@@ -56,18 +56,18 @@ Tibshirani, R., Hastie, T., Narasimhan, B., Soltys, S., Shi, G.,
 Koong, A., and Le, Q.T.,
 ``Sample classification from protein mass spectrometry,
 by peak probability contrasts,"
-\emph{Bioinformatics}, \textbf{20}(17):3034--44, 2004.
+\emph{Bioinformatics}, 20(17):3034--44, 2004.
 
 Yasui, Y., McLerran, D., Adam, B.L., Winget, M., Thornquist, M., Feng, Z.,
 ``An automated peak identification/calibration procedure for
 high-dimensional protein measures from mass spectrometers,"
-\emph{Journal of Biomedicine and Biotechnology}, \textbf{2003}(4):242--8, 2003.
+\emph{Journal of Biomedicine and Biotechnology}, 2003(4):242--8, 2003.
 
 Yasui, Y., Pepe, M., Thompson, M.L., Adam, B.L., Wright, Jr., G.L.,
 Qu, Y., Potter, J.D., Winget, M., Thornquist, M., and Feng, Z.,
 ``A data-analytic strategy for protein biomarker discovery:
 Profiling of high-dimensional proteomic data for cancer detection,"
-\emph{Biostatistics}, \textbf{4}(3):449--63, 2003.
+\emph{Biostatistics}, 4(3):449--63, 2003.
 }
 
 \seealso{

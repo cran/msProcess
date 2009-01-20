@@ -81,7 +81,7 @@ use in calculating the waveshrink thresholds.
 vector of values containing \code{n.levels}
 thresholds (one threshold per decomposition level).}}
 
-\textbf{Note:} if \code{xform == "modwt"}, then only the \code{"universal"}
+Note: if \code{xform == "modwt"}, then only the \code{"universal"}
 threshold function is (currently) supported.
 Default: \code{"universal"}.}
 

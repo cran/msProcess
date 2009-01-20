@@ -96,14 +96,13 @@ Usage: summary(x)
 \examples{
 if (!exists("qclist")) data("qclist", package="msProcess")
 
-## print an \code{msList} object 
+## print an msList object 
 qclist
 
-## print the synopsis of an \code{msList} object 
+## print the synopsis of an msList object 
 summary(qclist)
 
-## plot the first spectrum from an \code{msList} 
-## object 
+## plot the first spectrum from an msList object 
 plot(qclist, index=1)
 }
 \keyword{classes}

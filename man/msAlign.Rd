@@ -94,28 +94,28 @@ Baggerly, K.A., and Kuerer, H.M.,
 ``Improved peak detection and quantification of mass spectrometry data
 acquired from surface-enhanced laser desorption and ionization
 by denoising spectra with the undecimated discrete wavelet transform,"
-\emph{Proteomics}, \textbf{5}:4107--17, 2005.
+\emph{Proteomics}, 5:4107--17, 2005.
 
 Tibshirani, R., Hastie, T., Narasimhan, B., Soltys, S., Shi, G.,
 Koong, A., and Le, Q.T.,
 ``Sample classification from protein mass spectrometry,
 by 'peak probability contrasts',"
-\emph{Bioinformatics}, \textbf{20}(17):3034--44, 2004.
+\emph{Bioinformatics}, 20(17):3034--44, 2004.
 
 Yasui, Y., McLerran, D., Adam, B.L., Winget, M., Thornquist, M., and
 Feng, Z.,
 ``An automated peak identification/calibration procedure for
 high-dimensional protein measures from mass spectrometers,"
-\emph{Journal of Biomedicine and Biotechnology}, \textbf{2003}(4):242--8, 2003.
+\emph{Journal of Biomedicine and Biotechnology}, 2003(4):242--8, 2003.
 
 Yasui, Y., Pepe, M., Thompson, M.L., Adam, B.L., Wright, Jr., G.L.,
 Qu, Y., Potter, J.D., Winget, M., Thornquist, M., and Feng, Z.,
 ``A data-analytic strategy for protein biomarker discovery:
 Profiling of high-dimensional proteomic data for cancer detection,"
-\emph{Biostatistics}, \textbf{4}(3):449--63, 2003.
+\emph{Biostatistics}, 4(3):449--63, 2003.
 
 T.W. Randolph and Y. Yasui, \emph{Multiscale Processing of Mass Spectrometry Data},
-\emph{Biometrics}, \textbf{62}:589--97, 2006.
+\emph{Biometrics}, 62:589--97, 2006.
 }
 
 \seealso{

@@ -25,14 +25,14 @@ See the help documentation of the specified FUN for details.}
 \item{FUN}{Either an object of class \code{"character"}
 or of class \code{"function"}.
 
-\textbf{character:} A character string denoting the
+character: A character string denoting the
 method to use in denoising the data.
 Supported choices are \code{"snv"} for standard normal variate
 transformation or \code{"tic"} for normalization based on the median
 total ion current estimate for all spectra.
 Default: \code{"tic"}.
 
-\textbf{function:} A user-defined function with an argument list
+function: A user-defined function with an argument list
 of the form \code{(x, ...)} where \code{x} is a required argument
 corresponding to a numeric vector (typically these values
 will be the intensity values of a mass spectrum).

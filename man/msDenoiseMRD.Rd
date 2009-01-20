@@ -129,7 +129,7 @@ are taken over all unique DWTs resulting from various circular shifts of the ori
 MODWT MRD is relatively more smooth than the corresponding DWT MRD.}
 
 \item{Zero phase aligment}{Unlike the DWT MRD, the MODWT MRD produces components that are
-associated with \textbf{exactly} zero phase filter operations such that events (such as peaks)
+associated with exactly zero phase filter operations such that events (such as peaks)
 in the details and smooth line up exactly with those of the original spectrum in TOF (or \eqn{m/z}).}
 
 \item{Computational speed}{The DWT is faster than the MODWT, but the MODWT is still quite
@@ -141,10 +141,10 @@ D. B. Percival and A. T. Walden, \emph{Wavelet Methods for
 Time Series Analysis}, Cambridge University Press, 2000.
 
 T.W. Randolph and Y. Yasui, \emph{Multiscale Processing of Mass Spectrometry Data},
-\emph{Biometrics}, \textbf{62}:589--97, 2006.
+\emph{Biometrics}, 62:589--97, 2006.
 
 T.W. Randolph, \emph{Scale-based normalization of spectral data},
-\emph{Disease Biomarkers}, \textbf{2}:135--144, 2006.
+\emph{Disease Biomarkers}, 2:135--144, 2006.
 }
 
 \seealso{

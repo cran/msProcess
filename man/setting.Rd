@@ -62,7 +62,7 @@ Usage: show(object) or object
 Coombes, K.R., Koomen, J.M., Baggerly, K.A., Morris, J.S., Kobayashi, R.,
 ``Understanding the characteristics of mass spectrometry data
 through the use of simulation,"
-\emph{Cancer Informatics}, \textbf{2005(1)}:41--52, 2005.
+\emph{Cancer Informatics}, 2005(1):41--52, 2005.
 }
 
 \seealso{

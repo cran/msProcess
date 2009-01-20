@@ -33,7 +33,7 @@ The TIC's are attached as element \code{"tic"}.
 \references{
 E.T. Fung and C. Enderwick,
 ProteinChip clinical proteomics: computational challenges and solutions,
-\emph{Biotechniques}, \textbf{Supplement 32}:S34-S41, 2002.
+\emph{Biotechniques}, Supplement 32:S34-S41, 2002.
 }
 
 \seealso{

@@ -98,7 +98,7 @@ D. B. Percival and A. T. Walden, \emph{Wavelet Methods for
 Time Series Analysis}, Cambridge University Press, 2000.
 
 T.W. Randolph and Y. Yasui, \emph{Multiscale Processing of Mass Spectrometry Data},
-\emph{Biometrics}, \textbf{62}:589--97, 2006.
+\emph{Biometrics}, 62:589--97, 2006.
 }
 
 \seealso{

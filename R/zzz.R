@@ -14,7 +14,8 @@ if (!is.R()) {
   .First.lib <- function(library, section)
   {
 	### Load the GUI if appropriate
-	if(is.sgui.app() && interactive()) {
+	if(is.sgui.app() && interactive() && 
+		require(pkgutils) && (getSversion() >= '8.1')) {
 		## load msProcess menu
 		loadMSMenu()
 		## load msProcess dialog properties and FunctionInfo objects

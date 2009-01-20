@@ -44,13 +44,13 @@ for more details.
 I.S. Helland, T. Naes and T. Isaksson, Related versions of
 the multiplicative scatter correction method for preprocessing
 spectroscopic data, \emph{Chemometrics and Intelligent Laboratory
-Systems}, \textbf{29}:233--241, 1995.
+Systems}, 29:233--241, 1995.
 
 T.W. Randolph, Scale-based normalization of spectral data,
-\emph{Cancer Biomarkers}, \textbf{2}:135--144, 2006.
+\emph{Cancer Biomarkers}, 2:135--144, 2006.
 
 T.W. Randolph and Y. Yasui, \emph{Multiscale Processing of Mass Spectrometry Data},
-\emph{Biometrics}, \textbf{62}:589--97, 2006.
+\emph{Biometrics}, 62:589--97, 2006.
 }
 
 \seealso{

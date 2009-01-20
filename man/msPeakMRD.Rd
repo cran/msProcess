@@ -67,7 +67,7 @@ Since \code{noise.local} is \code{NULL}, \code{"snr"} is the same as (\code{"int
 \references{
 T. W. Randolph and Y. Yasui,
 Multiscale Processing of Mass Spectrometry Data,
-\emph{Biometrics}, \textbf{62}, pp. 589--597, 2006.
+\emph{Biometrics}, 62, pp. 589--597, 2006.
 
 D. B. Percival and A. T. Walden, \emph{Wavelet Methods for
 Time Series Analysis}, Cambridge University Press, 2000.

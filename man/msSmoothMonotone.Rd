@@ -37,7 +37,7 @@ Coombes, K.R., Tsavachidis, S., Morris, J.S., Baggerly, K.A., Kuerer, H.M.,
 ``Improved peak detection and quantification of mass spectrometry data
 acquired from surface-enhanced laser desorption and ionization
 by denoising spectra with the undecimated discrete wavelet transform,"
-\emph{Proteomics}, \textbf{5}:4107--17, 2005.
+\emph{Proteomics}, 5:4107--17, 2005.
 }
 
 \seealso{

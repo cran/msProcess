@@ -21,7 +21,7 @@ importBin2Sqlite(conn, path, tablename, sampleTable, what = "double", categoryTa
   \item{tablename}{ A \code{character} string specifying the SQL table name. }
   \item{columnID}{ A \code{vector} of characters specifying the column names. }
   \item{pattern}{ A \code{character} string specifying patterns in file names. }
-  \item{what}{ A code{character} to specifying the data type in the binary file.
+  \item{what}{ A \code{character} to specifying the data type in the binary file.
     It is possible that a binary file might contain several types of data, but we 
     don't support that currently. }
   \item{append}{ A logical value. If \code{FALSE}, then existing tables will be overwritten. 
