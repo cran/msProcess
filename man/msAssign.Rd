@@ -23,7 +23,7 @@ msGlobalEnv()
 msNewEnv()
 msRemove(x, envir)}
 \description{For mutual compatibility in S-PLUS and R,
-these functions switch on \code{\link[base:isR]{is.R}} as an interface to
+these functions switch on \code{\link[base:is.R]{is.R}} as an interface to
 the \code{\link[base]{assign}}, \code{\link[base:get]{exists}}, \code{\link[base]{get}}, and \code{\link[base:rm]{remove}}
 functions. In addition, the \code{msGlobalEnv} function outputs
 the environment in R and frame in S-PLUS associated with

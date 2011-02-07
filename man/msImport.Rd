@@ -70,7 +70,9 @@ This function also checks if the following conditions hold:
 and issues warning messages if not.
 }
 \seealso{
-\code{\link[splus:import]{importData}}, \code{\link{msImportCiphergenXML}}.}
+\code{\link{msImportCiphergenXML}}.
+%\code{\link[splus:import]{importData}}, 
+}
 
 \examples{
 ## create faux MS data files 

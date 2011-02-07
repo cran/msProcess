@@ -37,7 +37,9 @@ ProteinChip clinical proteomics: computational challenges and solutions,
 }
 
 \seealso{
-\code{\link{msNormalize}}, \code{\link{msNormalizeSNV}}, \code{\link[splus:rowmeans]{colSums}}.}
+\code{\link{msNormalize}}, \code{\link{msNormalizeSNV}}. 
+%\code{\link[splus:rowmeans]{colSums}}, 
+}
 
 \examples{
 if (!exists("qcset")) data("qcset", package="msProcess")

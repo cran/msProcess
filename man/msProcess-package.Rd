@@ -37,7 +37,7 @@ and pipeline processing history recording and retrieval.
   Run \code{library(help="msProcess")} or \code{packageDescription("msProcess")} 
   from S-PLUS command line to get more general information about this package.
 }
-\seealso{
-  \code{\link[dimeR:dimeR-package]{dimeR}}, \code{\link[MLearn:MLearn-package]{MLearn}}
-}
+%\seealso{
+%  \code{\link[dimeR:dimeR-package]{dimeR}}, \code{\link[MLearn:MLearn-package]{MLearn}}
+%}
 \keyword{package}

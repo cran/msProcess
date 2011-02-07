@@ -100,7 +100,9 @@ same instrument conditions such as laser intensity, approximate
 date, and focusing mass or time lag.
 }
 \seealso{
-\code{\link[stats]{lm}}, \code{\link[splus]{lmRobMM}}, \code{\link[splus]{ltsreg}}, \code{\link[splus]{lmsreg}}, \code{\link[splus]{l1fit}}, \code{\link[splus]{rreg}}, \code{\link{msCalibrate}}.}
+\code{\link[stats]{lm}}, \code{\link{msCalibrate}}.
+%\code{\link[splus]{lmRobMM}}, \code{\link[splus]{ltsreg}}, \code{\link[splus]{lmsreg}}, \code{\link[splus]{l1fit}}, \code{\link[splus]{rreg}}, 
+}
 
 \examples{
 ## set up parameters 

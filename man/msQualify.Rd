@@ -77,7 +77,9 @@ nipple aspirate fluid by surface-enhanced laser desorption and ionization,"
 }
 
 \seealso{
-\code{\link[stats]{princomp}}, \code{\link[splus]{princompRob}}.}
+\code{\link[stats]{princomp}}.
+%, \code{\link[splus]{princompRob}}
+}
 
 \examples{
 ## create multiple reference samples with multiple 
