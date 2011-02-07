@@ -1,11 +1,12 @@
 Package: msProcess
 Type: Package
 Title: Protein Mass Spectra Processing
-Version: 1.0.6
+Version: 1.0.7
 Date: 2011-02-07
 Author: Lixin Gong, William Constantine, and Yu Alex Chen
 Maintainer: ORPHANED
-Depends: R (>= 2.12.0), methods, graphics, wmtsa, robust, XML, stats
+Depends: R (>= 2.14.0), methods, graphics, wmtsa, robust, XML, stats
+Imports: splus2R
 DependsSplus: RSQLite (>= 0.5-6), wmtsa, SPXML
 Description: This package provides tools for protein mass spectra
         processing including data preparation, denoising, noise
@@ -16,13 +17,12 @@ Description: This package provides tools for protein mass spectra
         simulation. It also provides auxiliary tools for data
         representation, data visualization, and pipeline processing
         history recording and retrieval.
-License: GNU General Public License Version 2
+License: GPL-2
 Copyright: 2007-2009 TIBCO Software Inc. All rights reserved.
-URL: http://www.insightful.com/services/research/proteome/default.asp
-Packaged: 2011-02-07 23:32:56 UTC; lgong
 Repository: CRAN
-Date/Publication: 2011-02-08 07:48:20
+Date/Publication: 2012-07-25 07:37:50
+Packaged: 2012-07-25 07:25:25 UTC; ripley
 X-CRAN-Original-Package: msProcess
-X-CRAN-Original-Maintainer: Lixin Gong <lgong@tibco.com>
+X-CRAN-Original-Maintainer: ORPHANED
 X-CRAN-Comment: Orphaned on 2012-07-25 as the original maintainer,
         Lixin Gong <lgong@tibco.com>, is uncontactable.

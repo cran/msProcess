@@ -1,5 +1,6 @@
-ab5a366b383a09cfd1746c39ff172a14 *DESCRIPTION
+97193d4f5e587b8fd1dc56aff32c7dd2 *DESCRIPTION
 eb723b61539feef013de476e68b5c50a *LICENSE
+1c406000d0636a70b759f122ab8af64d *NAMESPACE
 d8e34a641e9ea293cb23d656dce9ce54 *R/ms_align.q
 e000be3b12f2e2b55648c249fd6d4c8c *R/ms_base.q
 dd5439c872c3b028ec076c0873bf080f *R/ms_cal.q
@@ -25,11 +26,11 @@ aa045851584f6651432e4524a3d6a8dd *R/zzz.R
 e6987de4427b7ee3ed1567075e142469 *data/qcset.rda
 59e68d65d2a309a40fd677848d9702a1 *demo/00Index
 8789f4bec4fe27c5f3cc1d334909e3be *demo/abc_spectra_processing.R
-a6b356c86641d311aefc319a003064f1 *demo/coombes_clinchem_2003.R
+2df67887fb2aa1a33a8dbfaae307cd20 *demo/coombes_clinchem_2003.R
 9f1976c3f098bd3ccba25392456efbe0 *demo/coombes_proteomics_2005.R
-da1bf5d5d8aac96337c7e982335ecf1a *demo/morris_bioinformatics_2005.R
+1fe8ac5db8fe6d31b654aeaec1678cb4 *demo/morris_bioinformatics_2005.R
 a520fe7b20cc158b7ac78a8b187d2af0 *demo/randolph_biometrics_2006.R
-2289d0ddb8fd57b46ef9a84c049e5e34 *demo/yasui_biostatistics_2003.R
+f92d25e5d0ae2287d13b54fff8342e4f *demo/yasui_biostatistics_2003.R
 73875042968c53bafcb47a1f505898a1 *inst/bitmaps/Aquamarine.bmp
 bd84bb76109fc4fc8fe4e477d14e200b *inst/bitmaps/Auto.bmp
 af4653e1e8d7cbd5b9bb77d9e5212a15 *inst/bitmaps/Black.bmp

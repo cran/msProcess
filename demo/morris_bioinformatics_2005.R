@@ -4,7 +4,7 @@
 # Morris, J.S., Coombes, K.R., Koomen, J., Baggerly, K.A., and Kobayashi, R.,
 # "Feature extraction and quantification for mass spectrometry 
 # in biomedical applications using the mean spectrum," 
-# Bioinformatics, 21(9):1764–75, 2005.
+# Bioinformatics, 21(9):1764-75, 2005.
 #
 # NOTE: The parameter setting for the following processing functions 
 # might not be optimal for the dataset used. A user is encouraged to 

@@ -4,13 +4,13 @@
 # 1. Y. Yasui, D. McLerran, B. L. Adam, M. Winget, M. Thornquist, and Z. Feng, 
 # "An automated peak identification/calibration procedure for 
 # high-dimensional protein measures from mass spectrometers," 
-# Journal of Biomedicine and Biotechnology, 2003(4):242–248, 2003.
+# Journal of Biomedicine and Biotechnology, 2003(4):242-248, 2003.
 #
 # 2. Y. Yasui, M. Pepe, M. L. Thompson, B. L. Adam, G. L. Wright, Jr., Y. Qu, 
 # J. D. Potter, M. Winget, M. Thornquist, and Z. Feng, 
 # "A data-analytic strategy for protein biomarker discovery: 
 # Profiling of high-dimensional proteomic data for cancer detection," 
-# Biostatistics, 4(3):449–63, 2003.
+# Biostatistics, 4(3):449-63, 2003.
 #
 # NOTE: The parameter setting for the following processing functions 
 # might not be optimal for the dataset used. A user is encouraged to 

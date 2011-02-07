@@ -5,7 +5,7 @@
 # Xiao LC, Hung MC, and Kuerer HM, 
 # "Quality control and peak finding for proteomics data collected from nipple 
 # aspirate fluid by surface-enhanced laser desorption and ionization," 
-# Clinical Chemistry, 49(10):1615–23, 2003.
+# Clinical Chemistry, 49(10):1615-23, 2003.
 #
 # NOTE: The parameter setting for the following processing functions 
 # might not be optimal for the dataset used. A user is encouraged to 
